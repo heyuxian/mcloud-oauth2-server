@@ -25,7 +25,7 @@
 
 ## 快速使用
 
-> 本项目属于是[ MCloud](https://github.com/heyuxian/mcloud) 系列中的OAuth2认证服务，故项目中添加了Spring Cloud的依赖，项目启动时会自动在 [mcloud-eureka](https://github.com/heyuxian/mcloud-eureka) 服务发现与注册中心注册，所以在启动此项目之前，需要先启动 [mcloud-eureka](https://github.com/heyuxian/mcloud-eureka) 服务，**若不希望项目在注册中心注册，请将以下代码注释或是直接删除：**
+> 本项目属于[ MCloud](https://github.com/heyuxian/mcloud) 系列中的OAuth2认证服务，故项目中添加了Spring Cloud的依赖，项目启动时会自动在 [mcloud-eureka](https://github.com/heyuxian/mcloud-eureka) 服务发现与注册中心注册，所以在启动此项目之前，需要先启动 [mcloud-eureka](https://github.com/heyuxian/mcloud-eureka) 服务，**若不希望项目在注册中心注册，请将以下代码注释或是直接删除：**
 
 **pom.xml**
 
@@ -46,11 +46,11 @@
 
 **创建数据库**
 
-使用 mysql 客户端创建系统所需的数据库，默认的数据库名称为 `db_oauth`
+请使用 mysql 客户端或是其他你喜欢的工具创建数据库，默认的数据库名称为 `db_oauth`
 
 **执行初始化脚本**
 
-因为项目使用了**flywaydb** 进行数据库脚本的管理，故只需修改 `pom.xml`中 **flywaydb** 插件的数据库名，用户名以及密码并运行相关命令即可：
+因为项目使用了**flywaydb** 进行数据库脚本的管理，所以还需修改 `pom.xml`中 **flywaydb** 插件的数据库名，用户名以及密码：
 
 **pom.xml**
 
@@ -68,7 +68,7 @@
 </plugin>
 ```
 
-修改相关配置之后，在项目根目录下执行maven命令:
+修改相关配置之后，请在项目根目录下执行maven命令:
 
 ```
 mvn flyway:migrate
@@ -96,6 +96,8 @@ spring:
 mvn clean install
 mvn spring-boot:run
 ```
+
+如果你使用的是 Idea 或 eclipse 开发，请直接运行 **OAuthServerApplication** 这个方法即可启动服务。
 
 **访问地址**
 
