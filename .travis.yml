@@ -1,0 +1,22 @@
+language: java
+cache:
+  directories:
+  - $HOME/.m2
+mysql:
+  database: db_oauth
+  username: root
+  password :
+  encoding: utf8
+jdk:
+  - oraclejdk8
+install:
+  - mvn clean install -Dmaven.test.skip=true
+before_script:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS db_oauth;'
+script:
+  - mvn test
+after_success:
+  - mvn test jacoco:report coveralls:report
+notifications:
+  email:
+    - heyuxian.me@gmail.com
