@@ -1,6 +1,6 @@
-package me.javaroad.oauth.controller.api;
+package me.javaroad.oauth.controller.admin;
 
-import static me.javaroad.oauth.controller.OAuthConstants.API_PREFIX;
+import static me.javaroad.oauth.controller.OAuthConstants.ADMIN_PREFIX;
 
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
@@ -23,13 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @author heyx
  */
 @RestController
-@RequestMapping(API_PREFIX + "/approvals")
-public class ApprovalController {
+@RequestMapping(ADMIN_PREFIX + "/approvals")
+public class AdminApprovalController {
 
     private final ApprovalService approvalService;
 
     @Autowired
-    public ApprovalController(ApprovalService approvalService) {
+    public AdminApprovalController(ApprovalService approvalService) {
         this.approvalService = approvalService;
     }
 

@@ -1,6 +1,6 @@
-package me.javaroad.oauth.controller.api;
+package me.javaroad.oauth.controller.admin;
 
-import static me.javaroad.oauth.controller.OAuthConstants.API_PREFIX;
+import static me.javaroad.oauth.controller.OAuthConstants.ADMIN_PREFIX;
 
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @author heyx
  */
 @RestController
-@RequestMapping(API_PREFIX + "/authorities")
-public class AuthorityController {
+@RequestMapping(ADMIN_PREFIX + "/authorities")
+public class AdminAuthorityController {
 
     private final AuthorityService authorityService;
 
     @Autowired
-    public AuthorityController(AuthorityService authorityService) {
+    public AdminAuthorityController(AuthorityService authorityService) {
         this.authorityService = authorityService;
     }
 

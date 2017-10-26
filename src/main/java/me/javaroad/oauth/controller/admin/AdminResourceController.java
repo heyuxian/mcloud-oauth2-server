@@ -1,6 +1,6 @@
-package me.javaroad.oauth.controller.api;
+package me.javaroad.oauth.controller.admin;
 
-import static me.javaroad.oauth.controller.OAuthConstants.API_PREFIX;
+import static me.javaroad.oauth.controller.OAuthConstants.ADMIN_PREFIX;
 
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @author heyx
  */
 @RestController
-@RequestMapping(API_PREFIX + "/resources")
-public class ResourceController {
+@RequestMapping(ADMIN_PREFIX + "/resources")
+public class AdminResourceController {
 
     private final ResourceService resourceService;
 
     @Autowired
-    public ResourceController(ResourceService resourceService) {
+    public AdminResourceController(ResourceService resourceService) {
         this.resourceService = resourceService;
     }
 

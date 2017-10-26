@@ -3,23 +3,15 @@ package me.javaroad.oauth.controller.api;
 import static me.javaroad.oauth.controller.OAuthConstants.API_PREFIX;
 
 import io.swagger.annotations.ApiOperation;
-import javax.validation.Valid;
-import me.javaroad.oauth.dto.request.SearchUserRequest;
-import me.javaroad.oauth.dto.request.UserRequest;
+import java.security.Principal;
+import java.util.Objects;
+import me.javaroad.common.exception.UnauthorizedException;
 import me.javaroad.oauth.dto.response.UserResponse;
 import me.javaroad.oauth.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -36,30 +28,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ApiOperation(value = "Create user", httpMethod = "POST")
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse create(@RequestBody @Valid UserRequest userRequest) {
-        return userService.createOrUpdate(userRequest);
+    @ApiOperation(value = "Get current user", httpMethod = "POST")
+    @GetMapping("me")
+    public UserResponse me(Principal principal) {
+        if(Objects.isNull(principal) || StringUtils.isBlank(principal.getName())) {
+            throw new UnauthorizedException("unauthorized");
+        }
+        return userService.getResponse(principal.getName());
     }
 
-    @ApiOperation(value = "Get user page", httpMethod = "GET")
-    @GetMapping
-    public Page<UserResponse> getUserPage(SearchUserRequest searchUserRequest,
-        @PageableDefault Pageable pageable) {
-        return userService.getAll(searchUserRequest, pageable);
-    }
-
-    @ApiOperation(value = "Get user", httpMethod = "GET")
-    @GetMapping("{userId}")
-    public UserResponse getUser(@PathVariable Long userId) {
-        return userService.get(userId);
-    }
-
-    @ApiOperation(value = "Delete user", httpMethod = "DELETE")
-    @DeleteMapping("{userId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long userId) {
-        userService.delete(userId);
-    }
 }

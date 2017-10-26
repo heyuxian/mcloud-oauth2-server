@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getUser(username);
+        User user = userService.getEntity(username);
         if (Objects.isNull(user)) {
             throw new UsernameNotFoundException(String.format("User[username=%s] not found", username));
         }

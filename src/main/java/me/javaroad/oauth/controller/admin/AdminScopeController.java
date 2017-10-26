@@ -1,6 +1,6 @@
-package me.javaroad.oauth.controller.api;
+package me.javaroad.oauth.controller.admin;
 
-import static me.javaroad.oauth.controller.OAuthConstants.API_PREFIX;
+import static me.javaroad.oauth.controller.OAuthConstants.ADMIN_PREFIX;
 
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author heyx
  */
 @Controller
-@RequestMapping(API_PREFIX+"/scopes")
-public class ScopeController {
+@RequestMapping(ADMIN_PREFIX +"/scopes")
+public class AdminScopeController {
 
     private final ScopeService scopeService;
 
     @Autowired
-    public ScopeController(ScopeService scopeService) {
+    public AdminScopeController(ScopeService scopeService) {
         this.scopeService = scopeService;
     }
 
