@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import me.javaroad.oauth.dto.request.ResourceRequest;
 import me.javaroad.oauth.dto.response.ResourceResponse;
-import me.javaroad.oauth.mapper.ResourceMapper;
 import me.javaroad.oauth.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,19 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class ResourceController {
 
     private final ResourceService resourceService;
-    private final ResourceMapper resourceMapper;
 
     @Autowired
-    public ResourceController(ResourceService resourceService, ResourceMapper resourceMapper) {
+    public ResourceController(ResourceService resourceService) {
         this.resourceService = resourceService;
-        this.resourceMapper = resourceMapper;
     }
 
     @ApiOperation(value = "Create Resource", httpMethod = "POST")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResourceResponse createResource(@RequestBody @Valid ResourceRequest resourceRequest) {
-        return resourceService.createResource(resourceRequest);
+        return resourceService.create(resourceRequest);
     }
 
 }

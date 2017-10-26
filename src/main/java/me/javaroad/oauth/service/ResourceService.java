@@ -18,35 +18,39 @@ import org.springframework.transaction.annotation.Transactional;
 public class ResourceService {
 
     private final ResourceRepository resourceRepository;
-    private final ResourceMapper mapper;
+    private final ResourceMapper resourceMapper;
 
     @Autowired
-    public ResourceService(ResourceRepository resourceRepository, ResourceMapper mapper) {
+    public ResourceService(ResourceRepository resourceRepository, ResourceMapper resourceMapper) {
         this.resourceRepository = resourceRepository;
-        this.mapper = mapper;
+        this.resourceMapper = resourceMapper;
     }
 
-    public ResourceResponse getResource(Long resourceId) {
+    public Resource getEntity(Long resourceId) {
+        return resourceRepository.findOne(resourceId);
+    }
+
+    public ResourceResponse getResponse(Long resourceId) {
         Resource resource = resourceRepository.findOne(resourceId);
-        return mapper.mapEntityToResponse(resource);
+        return resourceMapper.mapEntityToResponse(resource);
     }
 
     @Transactional
-    public ResourceResponse createResource(ResourceRequest resourceRequest) {
-        Resource resource = mapper.mapRequestToEntity(resourceRequest);
+    public ResourceResponse create(ResourceRequest resourceRequest) {
+        Resource resource = resourceMapper.mapRequestToEntity(resourceRequest);
         resource = resourceRepository.save(resource);
-        return mapper.mapEntityToResponse(resource);
+        return resourceMapper.mapEntityToResponse(resource);
     }
 
     @Transactional
-    public ResourceResponse modifyResource(ResourceRequest resourceRequest) {
-        Resource resource = mapper.mapRequestToEntity(resourceRequest);
+    public ResourceResponse modify(ResourceRequest resourceRequest) {
+        Resource resource = resourceMapper.mapRequestToEntity(resourceRequest);
         resource = resourceRepository.save(resource);
-        return mapper.mapEntityToResponse(resource);
+        return resourceMapper.mapEntityToResponse(resource);
     }
 
     @Transactional
-    public void deleteResource(Long resourceId) {
+    public void delete(Long resourceId) {
         resourceRepository.delete(resourceId);
     }
 

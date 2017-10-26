@@ -1,6 +1,8 @@
 package me.javaroad.oauth.service;
 
+import java.util.Objects;
 import java.util.Set;
+import me.javaroad.common.exception.DataNotFoundException;
 import me.javaroad.oauth.dto.request.AuthorityRequest;
 import me.javaroad.oauth.dto.response.AuthorityResponse;
 import me.javaroad.oauth.entity.Authority;
@@ -26,26 +28,30 @@ public class AuthorityService {
         this.mapper = mapper;
     }
 
-    Authority getAuthority(Long authorityId) {
+    Authority getEntity(Long authorityId) {
         return authorityRepository.findOne(authorityId);
     }
 
     @Transactional
-    public AuthorityResponse createAuthority(AuthorityRequest authorityRequest) {
+    public AuthorityResponse create(AuthorityRequest authorityRequest) {
         Authority authority = mapper.mapRequestToEntity(authorityRequest);
         authority = authorityRepository.save(authority);
         return mapper.mapEntityToResponse(authority);
     }
 
     @Transactional
-    public AuthorityResponse modifyAuthority(AuthorityRequest authorityRequest) {
-        Authority authority = mapper.mapRequestToEntity(authorityRequest);
+    public AuthorityResponse modify(Long authorityId, AuthorityRequest authorityRequest) {
+        Authority authority = getEntity(authorityId);
+        if(Objects.isNull(authority)){
+            throw new DataNotFoundException("Authority[id=%s] not found", authorityId);
+        }
+        authority.setName(authorityRequest.getName());
         authority = authorityRepository.save(authority);
         return mapper.mapEntityToResponse(authority);
     }
 
     @Transactional
-    public void deleteAuthority(Long authorityId) {
+    public void delete(Long authorityId) {
         authorityRepository.delete(authorityId);
     }
 

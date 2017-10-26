@@ -25,17 +25,17 @@ public class ApprovalService {
         this.mapper = mapper;
     }
 
-    public ApprovalResponse createApproval(ApprovalRequest approvalRequest) {
+    public ApprovalResponse create(ApprovalRequest approvalRequest) {
         Approval approval = mapper.mapRequestToEntity(approvalRequest);
         approval = approvalRepository.save(approval);
         return mapper.mapEntityToResponse(approval);
     }
 
-    public Approval getApproval(Long approvalId) {
+    Approval getEntity(Long approvalId) {
         return approvalRepository.findOne(approvalId);
     }
 
-    public void deleteApproval(Long approvalId) {
+    public void delete(Long approvalId) {
         approvalRepository.delete(approvalId);
     }
 
@@ -46,5 +46,10 @@ public class ApprovalService {
     public List<ApprovalResponse> getAll() {
         List<Approval> approvals = approvalRepository.findAll();
         return mapper.mapEntityToResponse(approvals);
+    }
+
+    public ApprovalResponse getResponse(Long approvalId) {
+        Approval approval = getEntity(approvalId);
+        return mapper.mapEntityToResponse(approval);
     }
 }

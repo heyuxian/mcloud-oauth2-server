@@ -9,7 +9,9 @@ import me.javaroad.oauth.dto.response.AuthorityResponse;
 import me.javaroad.oauth.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -33,6 +35,13 @@ public class AuthorityController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AuthorityResponse createAuthority(@RequestBody @Valid AuthorityRequest authorityRequest) {
-        return authorityService.createAuthority(authorityRequest);
+        return authorityService.create(authorityRequest);
+    }
+
+    @ApiOperation(value = "Modify Authority", httpMethod = "PUT")
+    @PutMapping("{authorityId}")
+    public AuthorityResponse modifyAuthority(@PathVariable Long authorityId,
+        @RequestBody @Valid AuthorityRequest authorityRequest) {
+        return authorityService.modify(authorityId, authorityRequest);
     }
 }
