@@ -161,3 +161,21 @@ http://localhost:8043/uaa/swagger-ui.html
 如果你有任何好的意见以及建议，请提Issue给我，如果使用的是码云，可直接发表评论或是私信给我。
 
 最后，如果你觉得此项目对你有所帮助，欢迎点赞支持，若是你愿意参与到项目中,请fork以及提PR给我。
+
+## License
+
+```
+Copyright 2017 http://www.javaroad.me
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
