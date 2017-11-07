@@ -27,6 +27,9 @@ public class User extends TemporalEntity {
     @Column(unique = true)
     private String username;
     private String password;
+    private String nickName;
+    private String avatar;
+
     @ManyToMany
     @JoinTable(name = "user_authority",
         joinColumns = @JoinColumn(name = "user_id"),

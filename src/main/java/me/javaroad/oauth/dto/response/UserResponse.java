@@ -11,4 +11,6 @@ import lombok.Setter;
 public class UserResponse {
     private Long id;
     private String username;
+    private String nickName;
+    private String avatar;
 }
