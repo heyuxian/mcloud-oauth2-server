@@ -27,7 +27,7 @@ public class CustomClientDetailsService implements ClientDetailsService {
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        ClientResponse client = clientService.getClientByClientId(clientId);
+        ClientResponse client = clientService.getResponseByClientId(clientId);
         if (Objects.isNull(client)) {
             throw new ClientRegistrationException("client[clientId=" + clientId + "] not found");
         }

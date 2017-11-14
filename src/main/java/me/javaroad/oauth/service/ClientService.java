@@ -15,6 +15,8 @@ import me.javaroad.oauth.mapper.ClientMapper;
 import me.javaroad.oauth.repository.ClientRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +30,7 @@ import org.springframework.util.CollectionUtils;
 public class ClientService {
 
     private final ClientRepository clientRepository;
-    private final ClientMapper mapper;
+    private final ClientMapper clientMapper;
     private final PasswordEncoder passwordEncoder;
     private final ResourceService resourceService;
     private final ApprovalService approvalService;
@@ -36,11 +38,11 @@ public class ClientService {
     private final ScopeService scopeService;
 
     @Autowired
-    public ClientService(ClientRepository clientRepository, ClientMapper mapper,
+    public ClientService(ClientRepository clientRepository, ClientMapper clientMapper,
         PasswordEncoder passwordEncoder, ResourceService resourceService, ApprovalService approvalService,
         AuthorityService authorityService, ScopeService scopeService) {
         this.clientRepository = clientRepository;
-        this.mapper = mapper;
+        this.clientMapper = clientMapper;
         this.passwordEncoder = passwordEncoder;
         this.resourceService = resourceService;
         this.approvalService = approvalService;
@@ -48,20 +50,20 @@ public class ClientService {
         this.scopeService = scopeService;
     }
 
-    public Client getClient(Long clientId) {
+    public Client getEntity(Long clientId) {
         return clientRepository.findOne(clientId);
     }
 
     @Transactional
-    public ClientResponse createClient(ClientRequest clientRequest) {
-        Client client = mapper.mapRequestToEntity(clientRequest);
+    public ClientResponse create(ClientRequest clientRequest) {
+        Client client = clientMapper.mapRequestToEntity(clientRequest);
         client.setClientSecret(passwordEncoder.encode(clientRequest.getClientSecret()));
         setResourceToClient(client, clientRequest.getResourceIds());
         setAutoApproveToClient(client, clientRequest.getAutoApproveIds());
         setAuthorityToClient(client, clientRequest.getAuthorityIds());
         setScopeToClient(client, clientRequest.getScopeIds());
         client = clientRepository.save(client);
-        return mapper.mapEntityToResponse(client);
+        return clientMapper.mapEntityToResponse(client);
     }
 
     private void setScopeToClient(Client client, Set<Long> scopeIds) {
@@ -100,8 +102,8 @@ public class ClientService {
     }
 
     @Transactional
-    public Client modifyClient(ClientRequest clientRequest) {
-        Client client = mapper.mapRequestToEntity(clientRequest);
+    public Client modify(ClientRequest clientRequest) {
+        Client client = clientMapper.mapRequestToEntity(clientRequest);
         if (StringUtils.isNotBlank(clientRequest.getClientSecret())) {
             client.setClientSecret(passwordEncoder.encode(clientRequest.getClientSecret()));
         }
@@ -109,16 +111,21 @@ public class ClientService {
     }
 
     @Transactional
-    public void deleteClient(Long clientId) {
-        Client client = getClient(clientId);
+    public void delete(Long clientId) {
+        Client client = getEntity(clientId);
         if(Objects.isNull(client)) {
             throw new DataNotFoundException("client[id=%s] not found", clientId);
         }
         clientRepository.delete(client);
     }
 
-    public ClientResponse getClientByClientId(String clientId) {
+    public ClientResponse getResponseByClientId(String clientId) {
         Client client = clientRepository.findByClientId(clientId);
-        return mapper.mapEntityToResponse(client);
+        return clientMapper.mapEntityToResponse(client);
+    }
+
+    public Page<ClientResponse> getPage(Pageable pageable) {
+        Page<Client> clientPage = clientRepository.findAll(pageable);
+        return clientPage.map(clientMapper::mapEntityToResponse);
     }
 }

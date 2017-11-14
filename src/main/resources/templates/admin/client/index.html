@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="/admin/fragments/common::head"/>
+  <title>OAuth Client | OAuth Server</title>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <header th:replace="/admin/fragments/common::main-header"></header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside th:replace="/admin/fragments/common::sidebar">
+
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section th:replace="/admin/fragments/common::content-header"></section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+      <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <footer th:replace="/admin/fragments/common::main-footer"></footer>
+
+  <!-- Control Sidebar -->
+  <aside th:replace="/admin/fragments/common::control-sidebar"></aside>
+</div>
+<!-- ./wrapper -->
+<th:block th:replace="/admin/fragments/common::core-js"/>
+</body>
+</html>
