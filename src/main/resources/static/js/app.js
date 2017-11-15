@@ -42,10 +42,10 @@
         style: 'multi',
         selector: 'td:first-child'
       },
-      bAutoWidth: true,
+      bAutoWidth: false,
       columns: [],
       bServerSide: true,
-      bInfo: true,
+      bInfo: false,
       sAjaxSource: null,
       fnServerData: null,
       fnServerParams: null
@@ -67,25 +67,28 @@
       bInfo: options.bInfo,
       aLengthMenu: [10, 20, 30],
       sAjaxSource: options.sAjaxSource,
+      ajax: {
+        dataSrc: "content"
+      },
       fnServerData: function (sSource, aoData, fnCallback) {
         var pageNum = 1;
         var pageSize = 10;
         var sEcho = 1;
         for (var i = 0; i < aoData.length; i++) {
-          if ("sEcho" == aoData[i].name) {
+          if ("sEcho" === aoData[i].name) {
             sEcho = aoData[i].value;
           }
-          if ("iDisplayStart" == aoData[i].name) {
+          if ("iDisplayStart" === aoData[i].name) {
             pageNum = aoData[i].value;
           }
-          if ("iDisplayLength" == aoData[i].name) {
+          if ("iDisplayLength" === aoData[i].name) {
             pageSize = aoData[i].value;
           }
         }
         pageNum = pageNum / pageSize + 1;
         var def = {
-          pageNum: pageNum,
-          pageSize: pageSize,
+          page: pageNum,
+          size: pageSize,
           sEcho: sEcho
         };
         if (options.fnServerData) {

@@ -24,10 +24,10 @@
     <!-- Main content -->
     <section class="content container-fluid">
 
-      <table id="example2" class="table table-bordered table-hover">
+      <table id="example2" class="table table-bordered table-hover display">
         <thead>
         <tr>
-          <th><input type="checkbox" value="全选" id="selectAll"></th>
+          <th style="text-align: center;"><input type="checkbox" value="Select All" id="selectAll"></th>
           <th>Client ID</th>
           <th>Client Name</th>
         </tr>
@@ -51,35 +51,17 @@
 <script th:src="@{/static/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
 <script th:src="@{/static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
 <script th:src="@{/static/bower_components/datatables.select/js/dataTables.select.min.js}"></script>
+<script th:src="@{/static/js/app.js}"></script>
 
 <script>
   $(function () {
-    $('#example2').dataTable({
-      paging: true,
-      lengthChange: false,
-      searching: true,
-      select: {
-        style: 'multi',
-        selector: 'td:first-child'
-      },
-      info: false,
-      ordering: false,
-      autoWidth: false,
+    $('#example2').datatable({
       columns: [
         {data: "id"},
         {data: "clientId"},
         {data: "name"}
       ],
-      columnDefs: {
-        searchable: false,
-        orderable: false,
-        className: 'select-checkbox',
-        targets: 0
-      },
-      ajax: {
-        url: "/uaa/admin-api/clients",
-        dataSrc: "content"
-      }
+      sAjaxSource: "/uaa/admin-api/clients"
     })
   })
 </script>
