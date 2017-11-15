@@ -3,6 +3,8 @@
 <head>
   <th:block th:include="/admin/fragments/common::head"/>
   <title>OAuth Client | OAuth Server</title>
+  <link rel="stylesheet" th:href="@{/static/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/static/bower_components/datatables.select/css/select.bootstrap.min.css}">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -22,10 +24,17 @@
     <!-- Main content -->
     <section class="content container-fluid">
 
-      <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
-
+      <table id="example2" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th><input type="checkbox" value="全选" id="selectAll"></th>
+          <th>Client ID</th>
+          <th>Client Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
     </section>
     <!-- /.content -->
   </div>
@@ -39,5 +48,40 @@
 </div>
 <!-- ./wrapper -->
 <th:block th:replace="/admin/fragments/common::core-js"/>
+<script th:src="@{/static/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<script th:src="@{/static/bower_components/datatables.select/js/dataTables.select.min.js}"></script>
+
+<script>
+  $(function () {
+    $('#example2').dataTable({
+      paging: true,
+      lengthChange: false,
+      searching: true,
+      select: {
+        style: 'multi',
+        selector: 'td:first-child'
+      },
+      info: false,
+      ordering: false,
+      autoWidth: false,
+      columns: [
+        {data: "id"},
+        {data: "clientId"},
+        {data: "name"}
+      ],
+      columnDefs: {
+        searchable: false,
+        orderable: false,
+        className: 'select-checkbox',
+        targets: 0
+      },
+      ajax: {
+        url: "/uaa/admin-api/clients",
+        dataSrc: "content"
+      }
+    })
+  })
+</script>
 </body>
 </html>

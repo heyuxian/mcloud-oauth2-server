@@ -14,7 +14,6 @@ public class ClientResponse {
     private Long id;
     private String clientId;
     private String name;
-    private String clientSecret;
     private Set<ResourceResponse> resources;
     private Set<ScopeResponse> scope;
     private Set<GrantType> grantTypes;

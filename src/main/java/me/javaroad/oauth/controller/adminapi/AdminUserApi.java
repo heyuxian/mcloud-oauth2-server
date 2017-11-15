@@ -1,6 +1,6 @@
 package me.javaroad.oauth.controller.adminapi;
 
-import static me.javaroad.oauth.controller.OAuthConstants.ADMIN_PREFIX;
+import static me.javaroad.oauth.controller.OAuthConstants.ADMIN_API_PREFIX;
 
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author heyx
  */
 @RestController
-@RequestMapping(ADMIN_PREFIX + "/users")
+@RequestMapping(ADMIN_API_PREFIX + "/users")
 public class AdminUserApi {
 
     private final UserService userService;

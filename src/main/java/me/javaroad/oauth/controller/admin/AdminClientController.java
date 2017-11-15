@@ -27,7 +27,7 @@ public class AdminClientController {
 
     @GetMapping("index")
     public String index(@PageableDefault Pageable pageable, Model model) {
-        model.addAttribute("clients", clientService.getPage(pageable));
+        model.addAttribute("page", clientService.getPage(pageable));
         return "admin/client/index";
     }
 }
