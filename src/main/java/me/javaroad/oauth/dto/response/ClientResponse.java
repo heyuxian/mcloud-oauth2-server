@@ -1,5 +1,6 @@
 package me.javaroad.oauth.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,8 @@ import me.javaroad.oauth.entity.GrantType;
 public class ClientResponse {
     private Long id;
     private String clientId;
+    @JsonIgnore
+    private String clientSecret;
     private String name;
     private Set<ResourceResponse> resources;
     private Set<ScopeResponse> scope;

@@ -34,9 +34,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .requestMatchers()
-            .antMatchers("/api/v1/**")
+            .antMatchers("/api/v1/**", "/admin-api/**")
             .and().authorizeRequests()
-            .antMatchers("/api/v1/**")
+            .antMatchers("/api/v1/**", "/admin-api/**")
             .authenticated();
     }
 
