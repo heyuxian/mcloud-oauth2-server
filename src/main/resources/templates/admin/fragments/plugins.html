@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <th:block th:fragment="datatable-css">
+    <link th:href="@{/static/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/static/plugins/jquery-datatable/extensions/select/css/select.bootstrap.min.css}" rel="stylesheet">
+  </th:block>
+</head>
+
+<body class="theme-teal">
+
+<th:block th:fragment="datatable-js">
+  <script th:src="@{/static/plugins/jquery-datatable/jquery.dataTables.js}"></script>
+  <script th:src="@{/static/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js}"></script>
+  <script th:src="@{/static/plugins/jquery-datatable/extensions/select/js/dataTables.select.min.js}"></script>
+  <script th:src="@{/static/plugins/jquery-datatable/mcloud.dataTables.js}"></script>
+</th:block>
+</body>
+
+</html>

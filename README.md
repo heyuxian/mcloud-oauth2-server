@@ -17,12 +17,18 @@
 
 **OAuth2**认证流程可参考博客 [理解OAuth 2.0](http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html) ，此处不再赘述。
 
-## 具体实现
+## Features
 
-系统实现了OAuth2 **认证服务器** 以及 **资源管理器**
+- **认证服务器** 使用Spring Security 结合 JWT Token 实现认证服务，提供了功能完整的 OAuth2 认证服务器。 
 
-- **认证服务器** 主要进行用户权限的鉴定以及 token的发放，token是使用JWT Token的形式进行签名及验证，并且由于使用的是非对称方式进行 **access_token** 的签名，故 **资源服务器** 只需知道所用的公钥即可验证**access_token** ，减少了 **资源服务器** 与 **认证服务器** 之间的通信。
-- **资源服务器** 主要提供了用于管理用户以及OAuth客户端的**Rest API** ，具体请查看 swagger 文档：`http://localhost:8043/uaa/swagger-ui.html`
+- **资源服务器** 实现了以下两种方式进行OAuth2 相关资源的管理
+
+  - 以 RestAPI 形式提供服务来管理资源：`http://localhost:8043/uaa/swagger-ui.html`
+  - 以 Thymeleaf + [AdminBSBMaterialDesign](https://github.com/gurayyarar/AdminBSBMaterialDesign) 实现的管理端:
+
+  ![qq 20171126221422](https://user-images.githubusercontent.com/30259465/33240889-249280ae-d2f9-11e7-9b7e-8184a101b811.jpg)
+
+  ​
 
 ## 快速使用
 
@@ -134,7 +140,7 @@ http://localhost:8043/uaa/swagger-ui.html
 - **Scope**:  可以为空，此处不填
 - **Grant Type**: Authorization code
 
-![qq 20171022012531](https://user-images.githubusercontent.com/30259465/31854246-34a722bc-b6c8-11e7-9815-8e85822f2352.png)
+![qq 20171126221612](https://user-images.githubusercontent.com/30259465/33240822-6c0d75ee-d2f7-11e7-810c-5dd523714c86.jpg)
 
 默认用户：
 

@@ -9,6 +9,8 @@ import me.javaroad.oauth.entity.Authority;
 import me.javaroad.oauth.mapper.AuthorityMapper;
 import me.javaroad.oauth.repository.AuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +22,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthorityService {
 
     private final AuthorityRepository authorityRepository;
-    private final AuthorityMapper mapper;
+    private final AuthorityMapper authorityMapper;
 
     @Autowired
-    public AuthorityService(AuthorityRepository authorityRepository, AuthorityMapper mapper) {
+    public AuthorityService(AuthorityRepository authorityRepository, AuthorityMapper authorityMapper) {
         this.authorityRepository = authorityRepository;
-        this.mapper = mapper;
+        this.authorityMapper = authorityMapper;
     }
 
     Authority getEntity(Long authorityId) {
@@ -34,20 +36,20 @@ public class AuthorityService {
 
     @Transactional
     public AuthorityResponse create(AuthorityRequest authorityRequest) {
-        Authority authority = mapper.mapRequestToEntity(authorityRequest);
+        Authority authority = authorityMapper.mapRequestToEntity(authorityRequest);
         authority = authorityRepository.save(authority);
-        return mapper.mapEntityToResponse(authority);
+        return authorityMapper.mapEntityToResponse(authority);
     }
 
     @Transactional
     public AuthorityResponse modify(Long authorityId, AuthorityRequest authorityRequest) {
         Authority authority = getEntity(authorityId);
-        if(Objects.isNull(authority)){
+        if (Objects.isNull(authority)) {
             throw new DataNotFoundException("Authority[id=%s] not found", authorityId);
         }
         authority.setName(authorityRequest.getName());
         authority = authorityRepository.save(authority);
-        return mapper.mapEntityToResponse(authority);
+        return authorityMapper.mapEntityToResponse(authority);
     }
 
     @Transactional
@@ -57,5 +59,10 @@ public class AuthorityService {
 
     Set<Authority> getAuthorityByIds(Set<Long> authorityIds) {
         return authorityRepository.findByIdIn(authorityIds);
+    }
+
+    public Page<AuthorityResponse> getPage(Pageable pageable) {
+        Page<Authority> authorityPage = authorityRepository.findAll(pageable);
+        return authorityPage.map(authorityMapper::mapEntityToResponse);
     }
 }

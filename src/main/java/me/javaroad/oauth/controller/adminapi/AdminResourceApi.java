@@ -8,7 +8,11 @@ import me.javaroad.oauth.dto.request.ResourceRequest;
 import me.javaroad.oauth.dto.response.ResourceResponse;
 import me.javaroad.oauth.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,4 +40,9 @@ public class AdminResourceApi {
         return resourceService.create(resourceRequest);
     }
 
+    @ApiOperation(value = "Get Resources", httpMethod = "GET")
+    @GetMapping
+    public Page<ResourceResponse> getResourcePage(@PageableDefault Pageable pageable) {
+        return resourceService.getPage(pageable);
+    }
 }

@@ -7,6 +7,8 @@ import me.javaroad.oauth.entity.Scope;
 import me.javaroad.oauth.mapper.ScopeMapper;
 import me.javaroad.oauth.repository.ScopeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class ScopeService {
 
     private final ScopeRepository scopeRepository;
-    private final ScopeMapper mapper;
+    private final ScopeMapper scopeMapper;
 
     @Autowired
-    public ScopeService(ScopeRepository scopeRepository, ScopeMapper mapper) {
+    public ScopeService(ScopeRepository scopeRepository, ScopeMapper scopeMapper) {
         this.scopeRepository = scopeRepository;
-        this.mapper = mapper;
+        this.scopeMapper = scopeMapper;
     }
 
     public Scope getScope(Long scopeId) {
@@ -32,16 +34,16 @@ public class ScopeService {
 
     @Transactional
     public ScopeResponse createScope(ScopeRequest scopeRequest) {
-        Scope scope = mapper.mapRequestToEntity(scopeRequest);
+        Scope scope = scopeMapper.mapRequestToEntity(scopeRequest);
         scope = scopeRepository.save(scope);
-        return mapper.mapEntityToResponse(scope);
+        return scopeMapper.mapEntityToResponse(scope);
     }
 
     @Transactional
     public ScopeResponse modifyScope(ScopeRequest scopeRequest) {
-        Scope scope = mapper.mapRequestToEntity(scopeRequest);
+        Scope scope = scopeMapper.mapRequestToEntity(scopeRequest);
         scope = scopeRepository.save(scope);
-        return mapper.mapEntityToResponse(scope);
+        return scopeMapper.mapEntityToResponse(scope);
     }
 
     @Transactional
@@ -51,5 +53,10 @@ public class ScopeService {
 
     Set<Scope> getScopeByIds(Set<Long> scopeIds) {
         return scopeRepository.findByIdIn(scopeIds);
+    }
+
+    public Page<ScopeResponse> getPage(Pageable pageable) {
+        Page<Scope> scopePage = scopeRepository.findAll(pageable);
+        return scopePage.map(scopeMapper::mapEntityToResponse);
     }
 }

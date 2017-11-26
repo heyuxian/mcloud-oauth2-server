@@ -44,9 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/login", "/register", "/swagger**/**", "/v2/api-docs").permitAll()
             .anyRequest().authenticated()
             .and()
-            .formLogin().loginPage("/login")
+            .formLogin().loginPage("/login").defaultSuccessUrl("/admin/dashboard")
             .and()
-            .logout().permitAll();
+            //If CSRF protection is enabled (default), then the request must also be a POST.
+            .logout();
     }
 
     @Override

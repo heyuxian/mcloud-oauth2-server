@@ -8,7 +8,11 @@ import me.javaroad.oauth.dto.request.AuthorityRequest;
 import me.javaroad.oauth.dto.response.AuthorityResponse;
 import me.javaroad.oauth.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -43,5 +47,11 @@ public class AdminAuthorityApi {
     public AuthorityResponse modifyAuthority(@PathVariable Long authorityId,
         @RequestBody @Valid AuthorityRequest authorityRequest) {
         return authorityService.modify(authorityId, authorityRequest);
+    }
+
+    @ApiOperation(value = "Get Authorities", httpMethod = "GET")
+    @GetMapping
+    public Page<AuthorityResponse> getAuthorityPage(@PageableDefault Pageable pageable) {
+        return authorityService.getPage(pageable);
     }
 }

@@ -7,6 +7,8 @@ import me.javaroad.oauth.entity.Resource;
 import me.javaroad.oauth.mapper.ResourceMapper;
 import me.javaroad.oauth.repository.ResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,5 +58,10 @@ public class ResourceService {
 
     Set<Resource> getResourceByIds(Set<Long> resourceIds) {
         return resourceRepository.findByIdIn(resourceIds);
+    }
+
+    public Page<ResourceResponse> getPage(Pageable pageable) {
+        Page<Resource> resourcePage = resourceRepository.findAll(pageable);
+        return resourcePage.map(resourceMapper::mapEntityToResponse);
     }
 }

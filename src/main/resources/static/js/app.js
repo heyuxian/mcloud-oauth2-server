@@ -1,130 +1,143 @@
-;$(function ($) {
+$(function () {
+    skinChanger();
+    activateNotificationAndTasksScroll();
+    activeSidebar();
 
-  var DataTable = function ($this, opt) {
-    var columnDefOpt = [{
-      searchable: false,
-      orderable: false,
-      className: 'select-checkbox',
-      targets: 0
-    }];
-    if (opt.columnDefs) {
-      columnDefOpt = columnDefOpt.concat(opt.columnDefs);
-    }
-    if (opt.enableEdit) {
-      var editOpt = [{
-        orderable: false,
-        targets: -1,
-        render: function (data) {
-          return '<a href="user.html"><i class="fa fa-pencil"></i></a>  ' +
-              '<a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>';
-        }
-      }];
-      columnDefOpt = columnDefOpt.concat(editOpt);
-    }
-    this.defaults = {
-      dom: '<"top"<"clear">>rt<"bottom"i<"page-info"l>p<"clear">>',
-      language: {
-        'emptyTable': '没有数据',
-        'loadingRecords': '加载中...',
-        'processing': '查询中...',
-        'search': '搜索:',
-        'lengthMenu': '每页 _MENU_ 条记录',
-        'zeroRecords': '没有数据',
-        'paginate': {
-          'next': '下一页',
-          'previous': '上一页'
-        },
-        'info': '第 _PAGE_ 页 / 共 _PAGES_ 页',
-        'infoEmpty': '没有数据',
-        'infoFiltered': '(从 _MAX_ 条记录中筛选)'
-      },
-      select: {
-        style: 'multi',
-        selector: 'td:first-child'
-      },
-      bAutoWidth: false,
-      columns: [],
-      bServerSide: true,
-      bInfo: false,
-      sAjaxSource: null,
-      fnServerData: null,
-      fnServerParams: null
-    };
-    var options = $.extend({}, this.defaults, opt);
-    var table = $($this).DataTable({
-      dom: options.dom,
-      language: options.language,
-      columnDefs: columnDefOpt,
-      paginate: true,
-      searching: false,
-      ordering: false,
-      select: options.select,
-      columns: options.columns,
-      bAutoWidth: options.bAutoWidth,
-      sScrollX: true,
-      bServerSide: options.bServerSide,
-      fnServerParams: options.fnServerParams,
-      bInfo: options.bInfo,
-      aLengthMenu: [10, 20, 30],
-      sAjaxSource: options.sAjaxSource,
-      ajax: {
-        dataSrc: "content"
-      },
-      fnServerData: function (sSource, aoData, fnCallback) {
-        var pageNum = 1;
-        var pageSize = 10;
-        var sEcho = 1;
-        for (var i = 0; i < aoData.length; i++) {
-          if ("sEcho" === aoData[i].name) {
-            sEcho = aoData[i].value;
-          }
-          if ("iDisplayStart" === aoData[i].name) {
-            pageNum = aoData[i].value;
-          }
-          if ("iDisplayLength" === aoData[i].name) {
-            pageSize = aoData[i].value;
-          }
-        }
-        pageNum = pageNum / pageSize + 1;
-        var def = {
-          page: pageNum,
-          size: pageSize,
-          sEcho: sEcho
-        };
-        if (options.fnServerData) {
-          options.fnServerData(def);
-        }
-        $.ajax({
-          url: sSource,
-          data: def,
-          dataType: "json",
-          success: function (result) {
-            fnCallback(result);
-          }
-        });
-      },
+    setSkinListHeightAndScroll(true);
+    setSettingListHeightAndScroll(true);
+    $(window).resize(function () {
+        setSkinListHeightAndScroll(false);
+        setSettingListHeightAndScroll(false);
     });
-    var selected = false;
-    if ($("#selectAll").prop("checked")) {
-      $("#selectAll").prop("checked", false);
-    }
-    $("#selectAll").bind("click", function () {
-      if (selected) {
-        table.rows().deselect();
-        selected = false;
-      } else {
-        table.rows().select();
-        selected = true;
-      }
-      //var rows = table.rows( { selected: true } );
-
-      //table.draw(false);
-      //console.log(rows.data()[0].username);
-    });
-    return table;
-  };
-  $.fn.datatable = function (opt) {
-    return DataTable($(this), opt);
-  };
 
 });
+
+function activeSidebar() {
+    $(".sidebar .menu").find("a").each(function (index, data) {
+        var current = location.pathname.replace(/(create|edit|([0-9]+))$/, "");
+        var path = data.pathname;
+        if (current === path) {
+            $(this).addClass("toggled");
+            var parent = $(data).parent();
+            while (parent && !parent.hasClass("list")) {
+                if (parent.is("li")) {
+                    parent.addClass("active");
+                }
+                if (parent.is("ul")) {
+                    parent.prev().addClass("toggled");
+                }
+                parent = parent.parent();
+            }
+        }
+    });
+}
+
+function logout() {
+    $("#logout-form").submit();
+}
+
+//Skin changer
+function skinChanger() {
+    $('.right-sidebar .demo-choose-skin li').on('click', function () {
+        var $body = $('body');
+        var $this = $(this);
+
+        var existTheme = $('.right-sidebar .demo-choose-skin li.active').data(
+            'theme');
+        $('.right-sidebar .demo-choose-skin li').removeClass('active');
+        $body.removeClass('theme-' + existTheme);
+        $this.addClass('active');
+
+        $body.addClass('theme-' + $this.data('theme'));
+    });
+}
+
+//Skin tab content set height and show scroll
+function setSkinListHeightAndScroll(isFirstTime) {
+    var height = $(window).height() - ($('.navbar').innerHeight() + $(
+        '.right-sidebar .nav-tabs').outerHeight());
+    var $el = $('.demo-choose-skin');
+
+    if (!isFirstTime) {
+        $el.slimScroll({destroy: true}).height('auto');
+        $el.parent().find('.slimScrollBar, .slimScrollRail').remove();
+    }
+
+    $el.slimscroll({
+        height: height + 'px',
+        color: 'rgba(0,0,0,0.5)',
+        size: '6px',
+        alwaysVisible: false,
+        borderRadius: '0',
+        railBorderRadius: '0'
+    });
+}
+
+//Setting tab content set height and show scroll
+function setSettingListHeightAndScroll(isFirstTime) {
+    var height = $(window).height() - ($('.navbar').innerHeight() + $(
+        '.right-sidebar .nav-tabs').outerHeight());
+    var $el = $('.right-sidebar .demo-settings');
+
+    if (!isFirstTime) {
+        $el.slimScroll({destroy: true}).height('auto');
+        $el.parent().find('.slimScrollBar, .slimScrollRail').remove();
+    }
+
+    $el.slimscroll({
+        height: height + 'px',
+        color: 'rgba(0,0,0,0.5)',
+        size: '6px',
+        alwaysVisible: false,
+        borderRadius: '0',
+        railBorderRadius: '0'
+    });
+}
+
+//Activate notification and task dropdown on top right menu
+function activateNotificationAndTasksScroll() {
+    $('.navbar-right .dropdown-menu .body .menu').slimscroll({
+        height: '254px',
+        color: 'rgba(0,0,0,0.5)',
+        size: '4px',
+        alwaysVisible: false,
+        borderRadius: '0',
+        railBorderRadius: '0'
+    });
+}
+
+//Google Analiytics ======================================================================================
+addLoadEvent(loadTracking);
+var trackingId = 'UA-30038099-6';
+
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload !== 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function () {
+            oldonload();
+            func();
+        }
+    }
+}
+
+function loadTracking() {
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script',
+        'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', trackingId, 'auto');
+    ga('send', 'pageview');
+}
+
+//========================================================================================================
