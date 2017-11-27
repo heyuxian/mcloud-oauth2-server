@@ -2,7 +2,6 @@ $(function () {
     skinChanger();
     activateNotificationAndTasksScroll();
     activeSidebar();
-
     setSkinListHeightAndScroll(true);
     setSettingListHeightAndScroll(true);
     $(window).resize(function () {
@@ -13,12 +12,12 @@ $(function () {
 });
 
 function activeSidebar() {
-    $(".sidebar .menu").find("a").each(function (index, data) {
-        var current = location.pathname.replace(/(create|edit|([0-9]+))$/, "");
-        var path = data.pathname;
+    $(".sidebar .menu").find("a").each(function () {
+        var current = MCloud.current;
+        var path = this.pathname;
         if (current === path) {
             $(this).addClass("toggled");
-            var parent = $(data).parent();
+            var parent = $(this).parent();
             while (parent && !parent.hasClass("list")) {
                 if (parent.is("li")) {
                     parent.addClass("active");

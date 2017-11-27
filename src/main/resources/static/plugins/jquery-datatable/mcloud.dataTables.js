@@ -13,7 +13,7 @@
             columnDefOpt = columnDefOpt.concat(opt.columnDefs);
         }
         this.defaults = {
-            dom: '<"top"<"clear">>rt<"bottom"i<"page-info"l>p<"clear">>',
+            dom: 'Bfrtip',
             language: {
                 'emptyTable': '没有数据',
                 'loadingRecords': '加载中...',

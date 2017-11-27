@@ -18,7 +18,7 @@ spring:
   jpa:
     #TODO 正式环境需修改设置 update->none
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
@@ -26,6 +26,7 @@ spring:
     show-sql: true
   thymeleaf:
     cache: false
+    mode: LEGACYHTML5
 security:
   oauth2:
     resource:

@@ -27,6 +27,12 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link th:href="@{/static/css/themes/all-themes.css}" rel="stylesheet"/>
+
+    <script>
+      var MCloud = {
+          current: location.pathname.replace(/(create|edit|([0-9]+))$/, "")
+      };
+    </script>
   </th:block>
 </head>
 
