@@ -16,21 +16,26 @@ public class AdminOAuth2Controller extends BaseController {
 
     @GetMapping("resource")
     public String resource() {
-        return view("oauth2/resource");
+        return view("oauth2/resource/index");
     }
 
     @GetMapping("scope")
     public String scope() {
-        return view("oauth2/scope");
+        return view("oauth2/scope/index");
     }
 
     @GetMapping("authority")
     public String authority() {
-        return view("oauth2/authority");
+        return view("oauth2/authority/index");
     }
 
     @GetMapping("client")
     public String client() {
-        return view("oauth2/client");
+        return view("oauth2/client/index");
+    }
+
+    @GetMapping("client/form")
+    public String createClient() {
+        return view("oauth2/client/form");
     }
 }

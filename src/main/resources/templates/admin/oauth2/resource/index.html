@@ -24,7 +24,7 @@
   <div class="container-fluid">
     <div class="block-header">
       <h2>
-        OAUTH2 - SCOPE
+        OAUTH2 - RESOURCE
       </h2>
     </div>
     <!-- Basic Examples -->
@@ -33,7 +33,7 @@
         <div class="card">
           <div class="header">
             <h2>
-              ALL SCOPES
+              ALL RESOURCES
             </h2>
             <ul class="header-dropdown m-r--5">
               <li class="dropdown">
@@ -50,10 +50,10 @@
           </div>
           <div class="body">
             <div class="table-responsive">
-              <table id="scope-table" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+              <table id="resource-table" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                 <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>#</th>
                   <th>Name</th>
                 </tr>
                 </thead>
@@ -73,12 +73,12 @@
 
 <script>
   $(function () {
-    $('#scope-table').MDataTable({
+    $('#resource-table').MDataTable({
       columns: [
         {data: "id"},
         {data: "name"}
       ],
-      sAjaxSource: "/uaa/admin-api/scopes"
+      sAjaxSource: "/uaa/admin-api/resources"
     })
   });
 </script>

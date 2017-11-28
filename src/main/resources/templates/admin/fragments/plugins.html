@@ -4,19 +4,25 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <th:block th:fragment="datatable-css">
-    <link th:href="@{/static/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css}" rel="stylesheet"/>
-    <link th:href="@{/static/plugins/jquery-datatable/extensions/select/css/select.bootstrap.min.css}" rel="stylesheet"/>
-  </th:block>
 </head>
 
 <body>
 
+<th:block th:fragment="datatable-css">
+  <link th:href="@{/static/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css}" rel="stylesheet"/>
+  <link th:href="@{/static/plugins/jquery-datatable/extensions/select/css/select.bootstrap.min.css}" rel="stylesheet"/>
+</th:block>
 <th:block th:fragment="datatable-js">
   <script th:src="@{/static/plugins/jquery-datatable/jquery.dataTables.js}"></script>
   <script th:src="@{/static/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js}"></script>
   <script th:src="@{/static/plugins/jquery-datatable/extensions/select/js/dataTables.select.min.js}"></script>
   <script th:src="@{/static/plugins/jquery-datatable/mcloud.dataTables.js}"></script>
+</th:block>
+
+<th:block th:fragment="form">
+  <script th:src="@{/static/plugins/jquery-validation/jquery.form.js}"></script>
+  <script th:src="@{/static/plugins/jquery-validation/jquery.validate.js}"></script>
+  <script th:src="@{/static/plugins/jquery-validation/mcloud.form.js}"></script>
 </th:block>
 </body>
 

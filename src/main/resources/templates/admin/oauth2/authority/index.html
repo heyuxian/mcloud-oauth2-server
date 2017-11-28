@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>Dashboard | MCloud OAuth2 Server</title>
+  <title>Authority | MCloud OAuth2 Server</title>
   <th:block th:replace="/admin/fragments/layout::head"/>
   <th:block th:replace="/admin/fragments/plugins::datatable-css"/>
 </head>
@@ -19,21 +19,19 @@
 <th:block th:replace="/admin/fragments/layout::side-bar"/>
 <!-- #END# Side Bar -->
 
-
 <section class="content">
   <div class="container-fluid">
     <div class="block-header">
       <h2>
-        OAUTH2 - CLIENT
+        OAUTH2 - Authority
       </h2>
     </div>
-    <!-- Basic Examples -->
     <div class="row clearfix">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
           <div class="header">
             <h2>
-              ALL CLIENT
+              ALL AUTHORITIES
             </h2>
             <ul class="header-dropdown m-r--5">
               <li class="dropdown">
@@ -50,16 +48,16 @@
             </ul>
           </div>
           <div class="body">
+            <div class="toolbar">
+              <button type="button" class="btn btn-success waves-effect">CREATE</button>
+              <button type="button" class="btn btn-info waves-effect">EDIT</button>
+            </div>
             <div class="table-responsive">
-              <table id="client-table"
-                     class="table table-bordered table-striped table-hover js-basic-example dataTable">
+              <table id="authority-table"
+                     class="table table-bordered table-striped table-hover dataTable">
                 <thead>
                 <tr>
-                  <th style="text-align: center">
-                    <input type="checkbox" id="selectAll" class="filled-in" checked="">
-                    <label for="selectAll">Select All</label>
-                  </th>
-                  <th>Client ID</th>
+                  <th>#</th>
                   <th>Name</th>
                 </tr>
                 </thead>
@@ -70,7 +68,6 @@
         </div>
       </div>
     </div>
-    <!-- #END# Basic Examples -->
   </div>
 </section>
 
@@ -79,13 +76,12 @@
 
 <script>
     $(function () {
-        $('#client-table').MDataTable({
+        $('#authority-table').MDataTable({
             columns: [
                 {data: "id"},
-                {data: "clientId"},
                 {data: "name"}
             ],
-            sAjaxSource: "/uaa/admin-api/clients"
+            sAjaxSource: "/uaa/admin-api/authorities"
         })
     });
 </script>

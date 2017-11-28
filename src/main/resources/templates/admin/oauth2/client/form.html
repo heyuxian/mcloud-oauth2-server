@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Dashboard | MCloud OAuth2 Server</title>
+  <th:block th:replace="/admin/fragments/layout::head"/>
+  <th:block th:replace="/admin/fragments/plugins::datatable-css"/>
+</head>
+
+<body class="theme-teal">
+<th:block th:replace="/admin/fragments/layout::common-div"/>
+<!-- Search Bar -->
+<th:block th:replace="/admin/fragments/layout::search-bar"/>
+<!-- #END# Search Bar -->
+<!-- Top Bar -->
+<th:block th:replace="/admin/fragments/layout::top-bar"/>
+<!-- #Top Bar -->
+<!-- #Side Bar -->
+<th:block th:replace="/admin/fragments/layout::side-bar"/>
+<!-- #END# Side Bar -->
+
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <h2>
+        OAUTH2 - CLIENT
+      </h2>
+    </div>
+    <!-- Basic Examples -->
+    <div class="row clearfix">
+      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h2>NEW CLIENT</h2>
+          </div>
+          <div class="body">
+            <form id="form_validation" th:action="@{/admin-api/clients}" method="POST">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <input type="text" class="form-control" name="name" required>
+                  <label class="form-label">Name</label>
+                </div>
+              </div>
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <textarea name="description" cols="30" rows="5" class="form-control no-resize" required></textarea>
+                  <label class="form-label">Description</label>
+                </div>
+              </div>
+              <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- #END# Basic Examples -->
+  </div>
+</section>
+
+<th:block th:replace="/admin/fragments/layout::common-js"/>
+<th:block th:replace="/admin/fragments/plugins::datatable-js"/>
+<th:block th:replace="/admin/fragments/plugins::form"/>
+
+<script>
+    $(function () {
+        $('#client-table').MDataTable({
+            columns: [
+                {data: "id"},
+                {data: "clientId"},
+                {data: "name"}
+            ],
+            sAjaxSource: "/uaa/admin-api/clients"
+        });
+
+        $('#form_validation').MFormValidate();
+
+    });
+</script>
+</body>
+
+</html>

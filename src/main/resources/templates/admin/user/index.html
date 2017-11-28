@@ -24,7 +24,7 @@
   <div class="container-fluid">
     <div class="block-header">
       <h2>
-        OAUTH2 - CLIENT
+        OAUTH2 - USER
       </h2>
     </div>
     <!-- Basic Examples -->
@@ -33,7 +33,7 @@
         <div class="card">
           <div class="header">
             <h2>
-              ALL CLIENT
+              ALL USERS
             </h2>
             <ul class="header-dropdown m-r--5">
               <li class="dropdown">
@@ -53,9 +53,8 @@
               <table id="client-table" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                 <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Client ID</th>
-                  <th>Client Name</th>
+                  <th>#</th>
+                  <th>Account</th>
                 </tr>
                 </thead>
                 <tbody></tbody>
@@ -77,10 +76,9 @@
     $('#client-table').MDataTable({
       columns: [
         {data: "id"},
-        {data: "clientId"},
-        {data: "name"}
+        {data: "username"}
       ],
-      sAjaxSource: "/uaa/admin-api/clients"
+      sAjaxSource: "/uaa/admin-api/users"
     })
   });
 </script>

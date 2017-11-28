@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>Authority | MCloud OAuth2 Server</title>
+  <title>Dashboard | MCloud OAuth2 Server</title>
   <th:block th:replace="/admin/fragments/layout::head"/>
   <th:block th:replace="/admin/fragments/plugins::datatable-css"/>
 </head>
@@ -19,11 +19,12 @@
 <th:block th:replace="/admin/fragments/layout::side-bar"/>
 <!-- #END# Side Bar -->
 
+
 <section class="content">
   <div class="container-fluid">
     <div class="block-header">
       <h2>
-        OAUTH2 - Authority
+        OAUTH2 - SCOPE
       </h2>
     </div>
     <!-- Basic Examples -->
@@ -32,12 +33,11 @@
         <div class="card">
           <div class="header">
             <h2>
-              ALL AUTHORITIES
+              ALL SCOPES
             </h2>
             <ul class="header-dropdown m-r--5">
               <li class="dropdown">
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                   aria-haspopup="true" aria-expanded="false">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">more_vert</i>
                 </a>
                 <ul class="dropdown-menu pull-right">
@@ -50,13 +50,12 @@
           </div>
           <div class="body">
             <div class="table-responsive">
-              <table id="authority-table"
-                     class="table table-bordered table-striped table-hover dataTable">
+              <table id="scope-table" class="table table-bordered table-striped table-hover dataTable">
                 <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                </tr>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                  </tr>
                 </thead>
                 <tbody></tbody>
               </table>
@@ -73,15 +72,15 @@
 <th:block th:replace="/admin/fragments/plugins::datatable-js"/>
 
 <script>
-    $(function () {
-        $('#authority-table').MDataTable({
-            columns: [
-                {data: "id"},
-                {data: "name"}
-            ],
-            sAjaxSource: "/uaa/admin-api/authorities"
-        })
-    });
+  $(function () {
+    $('#scope-table').MDataTable({
+      columns: [
+        {data: "id"},
+        {data: "name"}
+      ],
+      sAjaxSource: "/uaa/admin-api/scopes"
+    })
+  });
 </script>
 </body>
 

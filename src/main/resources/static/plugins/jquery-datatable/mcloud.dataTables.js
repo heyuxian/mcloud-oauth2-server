@@ -1,5 +1,5 @@
 ;$(function ($) {
-    var MDataTable = function ($this, opt) {
+    var MDataTable = function ($this, options) {
         var columnDefOpt = [{
             searchable: false,
             orderable: false,
@@ -9,8 +9,8 @@
                 return "";
             }
         }];
-        if (opt.columnDefs) {
-            columnDefOpt = columnDefOpt.concat(opt.columnDefs);
+        if (options.columnDefs) {
+            columnDefOpt = columnDefOpt.concat(options.columnDefs);
         }
         this.defaults = {
             dom: 'Bfrtip',
@@ -33,6 +33,7 @@
                 style: 'multi',
                 selector: 'td:first-child'
             },
+            buttons: [],
             bAutoWidth: false,
             columns: [],
             bServerSide: true,
@@ -41,23 +42,24 @@
             fnServerData: null,
             fnServerParams: null
         };
-        var options = $.extend({}, this.defaults, opt);
+        var settings = $.extend({}, this.defaults, options);
         var table = $($this).DataTable({
-            dom: options.dom,
-            language: options.language,
+            dom: settings.dom,
+            language: settings.language,
             columnDefs: columnDefOpt,
             paginate: true,
+            buttons: settings.buttons,
             searching: false,
             ordering: false,
-            select: options.select,
-            columns: options.columns,
-            bAutoWidth: options.bAutoWidth,
+            select: settings.select,
+            columns: settings.columns,
+            bAutoWidth: settings.bAutoWidth,
             sScrollX: true,
-            bServerSide: options.bServerSide,
-            fnServerParams: options.fnServerParams,
-            bInfo: options.bInfo,
+            bServerSide: settings.bServerSide,
+            fnServerParams: settings.fnServerParams,
+            bInfo: settings.bInfo,
             aLengthMenu: [10, 20, 30],
-            sAjaxSource: options.sAjaxSource,
+            sAjaxSource: settings.sAjaxSource,
             fnServerData: function (sSource, aoData, fnCallback) {
                 var pageNum = 1;
                 var pageSize = 10;
@@ -79,8 +81,8 @@
                     size: pageSize,
                     sEcho: sEcho
                 };
-                if (options.fnServerData) {
-                    options.fnServerData(def);
+                if (settings.fnServerData) {
+                    settings.fnServerData(def);
                 }
                 $.ajax({
                     url: sSource,
@@ -117,8 +119,8 @@
         });
         return table;
     };
-    $.fn.MDataTable = function (opt) {
-        return MDataTable($(this), opt);
+    $.fn.MDataTable = function (options) {
+        return MDataTable($(this), options);
     };
 
 });
