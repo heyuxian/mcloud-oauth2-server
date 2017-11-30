@@ -9,20 +9,28 @@
 <body>
 
 <th:block th:fragment="datatable-css">
-  <link th:href="@{/static/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css}" rel="stylesheet"/>
-  <link th:href="@{/static/plugins/jquery-datatable/extensions/select/css/select.bootstrap.min.css}" rel="stylesheet"/>
+  <link th:href="@{/webjars/datatables/css/dataTables.bootstrap.css}" rel="stylesheet"/>
+  <link th:href="@{/webjars/datatables.net-select-bs/css/select.bootstrap.min.css}" rel="stylesheet"/>
 </th:block>
 <th:block th:fragment="datatable-js">
-  <script th:src="@{/static/plugins/jquery-datatable/jquery.dataTables.js}"></script>
-  <script th:src="@{/static/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js}"></script>
-  <script th:src="@{/static/plugins/jquery-datatable/extensions/select/js/dataTables.select.min.js}"></script>
-  <script th:src="@{/static/plugins/jquery-datatable/mcloud.dataTables.js}"></script>
+  <script th:src="@{/webjars/datatables/js/jquery.dataTables.js}"></script>
+  <script th:src="@{/webjars/datatables/js/dataTables.bootstrap.js}"></script>
+  <script th:src="@{/webjars/datatables.net-select/js/dataTables.select.js}"></script>
+  <script th:src="@{/static/js/mcloud/mcloud.dataTables.js}"></script>
 </th:block>
 
 <th:block th:fragment="form">
-  <script th:src="@{/static/plugins/jquery-validation/jquery.form.js}"></script>
-  <script th:src="@{/static/plugins/jquery-validation/jquery.validate.js}"></script>
-  <script th:src="@{/static/plugins/jquery-validation/mcloud.form.js}"></script>
+  <script th:src="@{/webjars/jquery-form/jquery.form.min.js}"></script>
+  <script th:src="@{/webjars/jquery-validation/jquery.validate.js}"></script>
+  <script th:src="@{/static/js/mcloud/mcloud.form.js}"></script>
+</th:block>
+
+<th:block th:fragment="flot-chart">
+  <script th:src="@{/webjars/flot/jquery.flot.js}"></script>
+  <script th:src="@{/webjars/flot/jquery.flot.resize.js}"></script>
+  <script th:src="@{/webjars/flot/jquery.flot.pie.js}"></script>
+  <script th:src="@{/webjars/flot/jquery.flot.categories.js}"></script>
+  <script th:src="@{/webjars/flot/jquery.flot.time.js}"></script>
 </th:block>
 </body>
 

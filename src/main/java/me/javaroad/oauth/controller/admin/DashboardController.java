@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author heyx
  */
 @Controller
-@RequestMapping(ADMIN_PREFIX + "/dashboard")
+@RequestMapping(ADMIN_PREFIX)
 public class DashboardController extends BaseController {
 
-    @GetMapping
+    @GetMapping(value = {"/dashboard", "/", ""})
     public String index() {
         return view("index");
     }

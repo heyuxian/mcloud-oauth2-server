@@ -9,29 +9,27 @@
     <link rel="icon" th:href="@{/static/favicon.ico}" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
-          type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link th:href="@{/webjars/material-design-icons/material-icons.css}" rel="stylesheet">
 
     <!-- Bootstrap Core Css -->
-    <link th:href="@{/static/plugins/bootstrap/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.css}" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link th:href="@{/static/plugins/node-waves/waves.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/waves/dist/waves.css}" rel="stylesheet"/>
 
     <!-- Animation Css -->
-    <link th:href="@{/static/plugins/animate-css/animate.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/animate.css/animate.css}" rel="stylesheet"/>
 
     <!-- Custom Css -->
     <link th:href="@{/static/css/style.css}" rel="stylesheet">
 
-    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link th:href="@{/static/css/themes/all-themes.css}" rel="stylesheet"/>
 
-    <script>
-      var MCloud = {
-          current: location.pathname.replace(/\/(form|create|edit|([0-9]+))$/, "")
-      };
+    <script th:inline="javascript">
+        var MCloud = {
+            current: location.pathname.replace(/\/(form|create|edit|([0-9]+))*$/, ""),
+            context: /*[[@{/admin}]]*/''
+        };
     </script>
   </th:block>
 </head>
@@ -394,22 +392,16 @@
 
 <th:block th:fragment="common-js">
   <!-- Jquery Core Js -->
-  <script th:src="@{/static/plugins/jquery/jquery.min.js}"></script>
-
+  <script th:src="@{/webjars/jquery/1.12.4/jquery.min.js}"></script>
   <!-- Bootstrap Core Js -->
-  <script th:src="@{/static/plugins/bootstrap/js/bootstrap.js}"></script>
-
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>
   <!-- Select Plugin Js -->
-  <script th:src="@{/static/plugins/bootstrap-select/js/bootstrap-select.js}"></script>
-
+  <script th:src="@{/webjars/bootstrap-select/js/bootstrap-select.js}"></script>
   <!-- Slimscroll Plugin Js -->
-  <script th:src="@{/static/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
-
+  <script th:src="@{/webjars/jQuery-slimScroll/jquery.slimscroll.js}"></script>
   <!-- Waves Effect Plugin Js -->
-  <script th:src="@{/static/plugins/node-waves/waves.js}"></script>
-
+  <script th:src="@{/webjars/waves/dist/waves.js}"></script>
   <script th:src="@{/static/js/app.js}"></script>
-
   <script th:src="@{/static/js/admin.js}"></script>
 </th:block>
 </body>
