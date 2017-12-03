@@ -1,5 +1,5 @@
 ;$(function ($) {
-    var MFormValidate = function ($this, options) {
+    var MValidate = function ($this, options) {
         this.defaults = {
             rules: {},
             submitHandler: null,

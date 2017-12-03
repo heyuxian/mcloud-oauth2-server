@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Dashboard | MCloud OAuth2 Server</title>
+  <th:block th:replace="/fragments/layout::core-css"/>
+  <th:block th:replace="/fragments/layout::app-css"/>
+</head>
+
+<body class="theme-teal">
+<th:block th:replace="/fragments/layout::common-div"/>
+<!-- Search Bar -->
+<th:block th:replace="/fragments/layout::search-bar"/>
+<!-- #END# Search Bar -->
+<!-- Top Bar -->
+<th:block th:replace="/fragments/layout::top-bar"/>
+<!-- #Top Bar -->
+<!-- #Side Bar -->
+<th:block th:replace="/fragments/layout::side-bar"/>
+<!-- #END# Side Bar -->
+
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <h2>DASHBOARD</h2>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h2>BASIC EXAMPLE - HORIZONTAL LAYOUT</h2>
+            <ul class="header-dropdown m-r--5">
+              <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                   aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">more_vert</i>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                  <li><a href="javascript:void(0);">Action</a></li>
+                  <li><a href="javascript:void(0);">Another action</a></li>
+                  <li><a href="javascript:void(0);">Something else here</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="body">
+            <div id="wizard_horizontal">
+              <h2>First Step</h2>
+              <section>
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                    <label for="type">Developer Type</label>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                    <div class="form-group">
+                      <div class="form-line">
+                        <select id="type" class="form-control show-tick">
+                          <option>Personal</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <h2>Second Step</h2>
+              <section>
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                    <label for="domain">Domain Name</label>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                    <div class="form-group">
+                      <div class="form-line">
+                        <input id="domain" class="form-control" placeholder="domain name">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                    <label for="protocol">Protocol</label>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                    <div class="form-group">
+                      <div class="form-line">
+                        <select id="protocol" name="protocol" class="form-control show-tick">
+                          <option th:value="HTTP">HTTP</option>
+                          <option th:value="HTTPS">HTTPS</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <h2>Third Step</h2>
+              <section>
+                <p>
+                  Morbi ornare tellus at elit ultrices id dignissim lorem elementum. Sed eget nisl at justo
+                  condimentum dapibus. Fusce eros justo, pellentesque non euismod ac, rutrum sed quam.
+                  Ut non mi tortor. Vestibulum eleifend varius ullamcorper. Aliquam erat volutpat.
+                  Donec diam massa, porta vel dictum sit amet, iaculis ac massa. Sed elementum dui
+                  commodo lectus sollicitudin in auctor mauris venenatis.
+                </p>
+              </section>
+
+              <h2>Forth Step</h2>
+              <section>
+                <p>
+                  Quisque at sem turpis, id sagittis diam. Suspendisse malesuada eros posuere mauris vehicula
+                  vulputate. Aliquam sed sem tortor. Quisque sed felis ut mauris feugiat iaculis nec
+                  ac lectus. Sed consequat vestibulum purus, imperdiet varius est pellentesque vitae.
+                  Suspendisse consequat cursus eros, vitae tempus enim euismod non. Nullam ut commodo
+                  tortor.
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<th:block th:replace="/fragments/layout::core-js"/>
+<th:block th:replace="/fragments/layout::app-js"/>
+<th:block th:replace="/fragments/plugins::flot-chart"/>
+<th:block th:replace="/fragments/plugins::form-step"/>
+<script>
+    MCloud.current = MCloud.context + 'console/dev/info';
+</script>
+<script>
+    $(function () {
+        $('#wizard_horizontal').steps({
+            headerTag: 'h2',
+            bodyTag: 'section',
+            transitionEffect: 'slideLeft',
+            onInit: function (event, currentIndex) {
+                setButtonWavesEffect(event);
+            },
+            onStepChanged: function (event, currentIndex, priorIndex) {
+                setButtonWavesEffect(event);
+            }
+        });
+
+        function setButtonWavesEffect(event) {
+            $(event.currentTarget).find('[role="menu"] li a').removeClass('waves-effect');
+            $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('waves-effect');
+        }
+    });
+</script>
+</body>
+
+</html>

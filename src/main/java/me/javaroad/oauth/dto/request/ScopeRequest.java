@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Setter
 public class ScopeRequest {
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 50)
     private String name;
+    private String description;
 }

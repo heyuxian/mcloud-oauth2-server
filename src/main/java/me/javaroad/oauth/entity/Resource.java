@@ -13,8 +13,9 @@ import me.javaroad.data.entity.TemporalEntity;
 @Getter
 @Setter
 @Entity
-@Table(name = "oauth_resources")
+@Table(name = "oauth_resource")
 public class Resource extends TemporalEntity {
     @Column(unique = true)
     private String name;
+    private String description;
 }

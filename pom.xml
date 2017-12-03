@@ -62,6 +62,10 @@
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.thymeleaf.extras</groupId>
+      <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+    </dependency>
+    <dependency>
       <groupId>net.sourceforge.nekohtml</groupId>
       <artifactId>nekohtml</artifactId>
       <version>1.9.22</version>
@@ -98,10 +102,11 @@
       <artifactId>bootstrap</artifactId>
       <version>3.3.6</version>
     </dependency>
+
     <dependency>
-      <groupId>org.webjars</groupId>
+      <groupId>org.webjars.bower</groupId>
       <artifactId>bootstrap-select</artifactId>
-      <version>1.12.2</version>
+      <version>1.10.0</version>
     </dependency>
 
     <dependency>
@@ -160,6 +165,12 @@
       <version>0.8.3</version>
     </dependency>
 
+    <!--steps-->
+    <dependency>
+      <groupId>org.webjars.bower</groupId>
+      <artifactId>jquery-steps</artifactId>
+      <version>1.1.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -207,7 +218,7 @@
           <user>root</user>
           <password>root</password>
           <driver>com.mysql.jdbc.Driver</driver>
-          <url>jdbc:mysql://localhost:3306/flyway</url>
+          <url>jdbc:mysql://localhost:3306/db_oauth</url>
         </configuration>
       </plugin>
 

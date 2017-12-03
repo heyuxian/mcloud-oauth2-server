@@ -37,14 +37,15 @@ public class Client extends TemporalEntity {
     public static final String FETCH_ALL_GRAPH = "fetch_all";
     @Column(unique = true)
     private String clientId;
+    private String clientSecret;
     private String name;
+    private String description;
     @ManyToMany
     @JoinTable(name = "client_resource",
         joinColumns = @JoinColumn(name = "client_id"),
         inverseJoinColumns = @JoinColumn(name = "resource_id")
     )
     private Set<Resource> resources;
-    private String clientSecret;
     @ManyToMany
     @JoinTable(name = "client_scope",
         joinColumns = @JoinColumn(name = "client_id"),

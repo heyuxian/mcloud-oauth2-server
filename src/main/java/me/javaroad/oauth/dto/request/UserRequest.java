@@ -1,7 +1,9 @@
 package me.javaroad.oauth.dto.request;
 
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import me.javaroad.oauth.entity.User.UserType;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -10,9 +12,19 @@ import org.hibernate.validator.constraints.NotBlank;
 @Getter
 @Setter
 public class UserRequest {
-    private Long id;
     @NotBlank
+    @Size(max = 50)
     private String username;
     @NotBlank
+    @Size(max = 255)
     private String password;
+    private UserType userType = UserType.USER;
+    @Size(max = 50)
+    private String email;
+    @Size(max = 20)
+    private String phone;
+    @Size(max = 50)
+    private String nickName;
+    @Size(max = 255)
+    private String avatar;
 }

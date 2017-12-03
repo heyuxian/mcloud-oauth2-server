@@ -3,6 +3,8 @@ package me.javaroad.oauth.entity;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -26,6 +28,10 @@ import me.javaroad.data.entity.TemporalEntity;
 public class User extends TemporalEntity {
     @Column(unique = true)
     private String username;
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+    private String email;
+    private String phone;
     private String password;
     private String nickName;
     private String avatar;
@@ -36,4 +42,8 @@ public class User extends TemporalEntity {
         inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
     private Set<Authority> authorities;
+
+    public enum UserType {
+        USER, DEVELOPER, ADMIN
+    }
 }

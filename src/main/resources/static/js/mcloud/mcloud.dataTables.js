@@ -5,8 +5,8 @@
             orderable: false,
             className: 'select-checkbox',
             targets: 0,
-            render: function () {
-                return "";
+            render: function (data) {
+                return data;
             }
         }];
         if (options.columnDefs) {

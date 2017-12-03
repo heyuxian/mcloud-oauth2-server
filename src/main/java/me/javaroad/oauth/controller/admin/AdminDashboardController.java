@@ -11,21 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author heyx
  */
 @Controller
-@RequestMapping(ADMIN_PREFIX + "/user")
-public class AdminUserController extends BaseController {
+@RequestMapping(ADMIN_PREFIX)
+public class AdminDashboardController extends BaseController {
 
-    @GetMapping("index")
+    @GetMapping(value = {"/dashboard", "/", ""})
     public String index() {
         return view("index");
-    }
-
-    @GetMapping("create")
-    public String create() {
-        return view("create");
-    }
-
-    @GetMapping("group")
-    public String group() {
-        return view("group");
     }
 }

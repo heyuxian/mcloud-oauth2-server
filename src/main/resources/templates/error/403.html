@@ -3,7 +3,8 @@
 
 <head>
     <title>403 | MCloud</title>
-    <th:block th:replace="/admin/fragments/layout::head"/>
+    <th:block th:replace="/fragments/layout::core-css"/>
+    <th:block th:replace="/fragments/layout::app-css"/>
 </head>
 
 <body class="four-zero-four">
@@ -15,14 +16,7 @@
         </div>
     </div>
 
-    <!-- Jquery Core Js -->
-    <script th:src="@{/static/plugins/jquery/jquery.min.js}"></script>
-
-    <!-- Bootstrap Core Js -->
-    <script th:src="@{/static/plugins/bootstrap/js/bootstrap.js}"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script th:src="@{/static/plugins/node-waves/waves.js}"></script>
+    <th:block th:replace="/fragments/layout::core-js"/>
 </body>
 
 </html>

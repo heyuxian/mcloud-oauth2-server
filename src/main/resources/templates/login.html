@@ -3,7 +3,8 @@
 
 <head>
   <title>Sign In | MCloud</title>
-  <th:block th:replace="/admin/fragments/layout::head"/>
+  <th:block th:replace="/fragments/layout::core-css"/>
+  <th:block th:replace="/fragments/layout::app-css"/>
 </head>
 
 <body class="login-page">
@@ -59,12 +60,11 @@
   </div>
 </div>
 
-<script th:src="@{/webjars/jquery/1.12.4/jquery.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>
-<th:block th:replace="/admin/fragments/plugins::form"/>
+<th:block th:replace="/fragments/layout::core-js"/>
+<th:block th:replace="/fragments/plugins::jquery-form"/>
 
 <script>
-    $(function ($) {
+    $(function () {
         $('#sign_in').MValidate({
             highlight: function (input) {
                 $(input).parents('.form-line').addClass('error');
