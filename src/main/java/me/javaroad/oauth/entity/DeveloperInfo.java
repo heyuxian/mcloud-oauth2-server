@@ -35,7 +35,4 @@ public class DeveloperInfo extends TemporalEntity {
         PERSONAL, COMPANY
     }
 
-    public enum Status {
-        PENDING, NORMAL, DISABLED
-    }
 }

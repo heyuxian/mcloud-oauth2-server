@@ -21,7 +21,8 @@ public class Domain {
     private String domain;
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Protocol protocol;
+    // todo
+    private Protocol protocol = Protocol.HTTP;
 
     public enum Protocol {
         HTTP, HTTPS

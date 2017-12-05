@@ -14,6 +14,7 @@ public class WebConfig extends DefaultWebConfig {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/register").setViewName("register");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 

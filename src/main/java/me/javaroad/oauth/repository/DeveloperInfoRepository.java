@@ -1,6 +1,9 @@
 package me.javaroad.oauth.repository;
 
 import me.javaroad.oauth.entity.DeveloperInfo;
+import me.javaroad.oauth.entity.Status;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface DeveloperInfoRepository extends JpaRepository<DeveloperInfo, Long> {
 
     DeveloperInfo findByUserUsername(String username);
+
+    Page<DeveloperInfo> findByStatus(Status status, Pageable pageable);
 }

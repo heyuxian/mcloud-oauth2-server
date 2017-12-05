@@ -1,5 +1,6 @@
 package me.javaroad.oauth.service;
 
+import java.util.List;
 import java.util.Set;
 import me.javaroad.oauth.dto.request.ResourceRequest;
 import me.javaroad.oauth.dto.response.ResourceResponse;
@@ -63,5 +64,9 @@ public class ResourceService {
     public Page<ResourceResponse> getPage(Pageable pageable) {
         Page<Resource> resourcePage = resourceRepository.findAll(pageable);
         return resourcePage.map(resourceMapper::mapEntityToResponse);
+    }
+
+    public List<ResourceResponse> getAll() {
+        return resourceMapper.mapEntityToResponse(resourceRepository.findAll());
     }
 }

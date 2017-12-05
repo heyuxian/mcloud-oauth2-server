@@ -1,5 +1,6 @@
 package me.javaroad.oauth.mapper;
 
+import java.util.List;
 import java.util.Set;
 import me.javaroad.oauth.dto.request.ResourceRequest;
 import me.javaroad.oauth.dto.response.ResourceResponse;
@@ -19,4 +20,6 @@ public interface ResourceMapper {
     Set<ResourceResponse> mapEntityToResponse(Set<Resource> resource);
 
     ResourceResponse mapEntityToResponse(Resource resource);
+
+    List<ResourceResponse> mapEntityToResponse(List<Resource> resources);
 }

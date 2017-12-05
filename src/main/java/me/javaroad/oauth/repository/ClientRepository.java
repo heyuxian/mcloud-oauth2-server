@@ -13,4 +13,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @EntityGraph(value = Client.FETCH_ALL_GRAPH)
     Client findByClientId(String clientId);
+
+    Client findByUserUsername(String username);
 }

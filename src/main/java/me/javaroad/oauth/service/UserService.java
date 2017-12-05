@@ -47,6 +47,14 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    User getNotNullEntity(String username) {
+        User user = getEntity(username);
+        if (Objects.isNull(user)) {
+            throw new DataNotFoundException("User[username=%s] not found", username);
+        }
+        return user;
+    }
+
     public UserResponse getResponse(Long userId) {
         User user = getEntity(userId);
         return userMapper.mapEntityToResponse(user);
@@ -68,6 +76,7 @@ public class UserService {
 
     @Transactional
     public UserResponse register(UserRequest userRequest) {
+        // todo user authority
         return create(userRequest);
     }
 
@@ -78,8 +87,11 @@ public class UserService {
         }
         user = userMapper.mapRequestToEntity(userRequest);
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-
+        if (Objects.isNull(user.getNickName())) {
+            user.setNickName("User");
+        }
         user = userRepository.save(user);
         return userMapper.mapEntityToResponse(user);
     }
+
 }

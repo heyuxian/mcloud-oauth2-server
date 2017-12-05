@@ -4,9 +4,13 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
@@ -40,6 +44,8 @@ public class Client extends TemporalEntity {
     private String clientSecret;
     private String name;
     private String description;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
     @ManyToMany
     @JoinTable(name = "client_resource",
         joinColumns = @JoinColumn(name = "client_id"),
@@ -72,5 +78,7 @@ public class Client extends TemporalEntity {
         inverseJoinColumns = @JoinColumn(name = "approval_id")
     )
     private Set<Approval> autoApprove;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 }

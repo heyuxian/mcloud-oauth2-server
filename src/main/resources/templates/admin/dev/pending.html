@@ -25,7 +25,7 @@
   <div class="container-fluid">
     <div class="block-header">
       <h2>
-        OAUTH2 - CLIENT
+        OAUTH2 - DEVELOPER
       </h2>
     </div>
     <!-- Basic Examples -->
@@ -34,7 +34,7 @@
         <div class="card">
           <div class="header">
             <h2>
-              ALL CLIENT
+              PENDING DEVELOPERS
             </h2>
             <ul class="header-dropdown m-r--5">
               <li class="dropdown">
@@ -52,7 +52,8 @@
           </div>
           <div class="body">
             <div class="toolbar">
-              <a th:href="@{/admin/oauth2/client/form}" class="btn btn-success waves-effect">CREATE</a>
+              <button type="button" class="btn btn-success waves-effect btn-review">APPROVE</button>
+              <button type="button" class="btn btn-danger waves-effect btn-review">DENY</button>
             </div>
             <div class="table-responsive">
               <table id="client-table"
@@ -60,8 +61,11 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>Client ID</th>
-                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Web Site</th>
+                  <th>Real Name</th>
+                  <th>Company Name</th>
+                  <th>Status</th>
                 </tr>
                 </thead>
                 <tbody></tbody>
@@ -78,17 +82,67 @@
 <th:block th:replace="/fragments/layout::core-js"/>
 <th:block th:replace="/fragments/layout::app-js"/>
 <th:block th:replace="/fragments/plugins::datatable-js"/>
+<th:block th:replace="/fragments/plugins::sweetalert"/>
 
 <script>
     $(function () {
-        $('#client-table').MDataTable({
+        var table = $('#client-table').MDataTable({
             columns: [
-                {data: "id"},
-                {data: "clientId"},
-                {data: "name"}
+                {
+                    data: "id"
+                },
+                {
+                    data: "type"
+                },
+                {
+                    data: "domain",
+                    render: function (data) {
+                        return data.domain;
+                    }
+                },
+                {
+                    data: "personal",
+                    render: function (data) {
+                        if (data) {
+                            return data.realName;
+                        }
+                        return '-';
+                    }
+                },
+                {
+                    data: "company",
+                    render: function (data) {
+                        if (data) {
+                            return data.corpName;
+                        }
+                        return '-';
+                    }
+                },
+                {
+                    data: "status"
+                }
             ],
-            sAjaxSource: "/uaa/admin-api/clients"
-        })
+            sAjaxSource: MCloud.context + "/admin-api/developer-infos?status=PENDING"
+        });
+
+        $(".btn-review").on("click", function () {
+            var data = table.rows({selected: true}).data();
+            if (data.length !== 1) {
+                alert('Please select one row');
+                return;
+            }
+            $.ajax({
+                url: MCloud.context + 'admin-api/developer-infos/' + data[0].id + '/review',
+                method: 'POST',
+                data: {
+                    status: 'NORMAL'
+                },
+                success: function (result) {
+                    swal("Success");
+                    table.ajax.reload();
+                }
+            });
+        });
     });
 </script>
 </body>

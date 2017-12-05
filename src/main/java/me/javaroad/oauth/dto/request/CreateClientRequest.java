@@ -14,14 +14,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Getter
 @Setter
-public class ClientRequest {
-    @NotBlank
-    @Size(max = 255)
-    private String clientId;
+public class CreateClientRequest {
     @NotBlank
     @Size(max = 50)
     private String name;
-    @NotBlank
     @Size(max = 255)
     private String clientSecret;
     private String additionalInformation;
@@ -37,7 +33,5 @@ public class ClientRequest {
     private Set<Long> resourceIds;
     @NotEmpty
     private Set<Long> scopeIds;
-    @NotEmpty
-    private Set<Long> authorityIds;
     private Set<Long> autoApproveIds;
 }

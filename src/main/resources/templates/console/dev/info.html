@@ -23,36 +23,90 @@
 <section class="content">
   <div class="container-fluid">
     <div class="block-header">
-      <h2>DASHBOARD</h2>
+      <h2>DEVELOPER INFO</h2>
     </div>
 
     <div class="row clearfix">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="card">
-          <div class="header">
-            <div class="row clearfix">
-              <div class="col-xs-12 col-sm-6">
-                <h2>Developer Information</h2>
-              </div>
-            </div>
-            <ul class="header-dropdown m-r--5">
-              <li class="dropdown">
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">more_vert</i>
-                </a>
-                <ul class="dropdown-menu pull-right">
-                  <li><a href="javascript:void(0);">Action</a></li>
-                  <li><a href="javascript:void(0);">Another action</a></li>
-                  <li><a href="javascript:void(0);">Something else here</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
           <div class="body" th:if="${info == null}">
             You're not a developer. <a th:href="@{/console/dev/apply}">Apply immediately</a>
           </div>
-          <div class="body" th:if="${info != null}">
-            <span th:text="${info.personal.realName}"></span>
+          <div class="header" th:if="${info != null and !info.isNormal()}">
+            <p>The account is under review, please wait.</p>
+          </div>
+          <div class="body" th:if="${info != null and info.isNormal() and info.isPersonal()}">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+              <li role="presentation" class="active"><a href="#user-info" data-toggle="tab">USER INFO</a></li>
+              <li role="presentation"><a href="#app-info" data-toggle="tab">APP INFO</a></li>
+              <li role="presentation"><a href="#security" data-toggle="tab">SECURITY</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade in active" id="user-info">
+                <ul class="list-group">
+                  <li class="list-group-item"><b>Name:</b>&nbsp;
+                    <!--/*@thymesVar id="info" type="me.javaroad.oauth.dto.response.DeveloperInfoResponse"*/-->
+                    <span th:text="${info.personal.realName}" class="label bg-teal"></span></li>
+                  <li class="list-group-item"><b>ID Card Number:</b>&nbsp;<span
+                      class="label bg-teal">5134**************</span>
+                  </li>
+                </ul>
+              </div>
+              <div role="tabpanel" class="tab-pane fade" id="app-info">
+                <h3>TODO</h3>
+              </div>
+              <div role="tabpanel" th:if="${clientInfo != null}" class="tab-pane fade" id="security">
+                <form th:action="@{/console-api/clients}" method="post" id="clientInfoForm">
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-control-label">
+                      <label for="app-key">App Key</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <input id="app-key" class="form-control" th:value="${clientInfo.clientId}" disabled>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-control-label">
+                      <label for="app-secret">App Secret</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <input id="app-secret" type="password" name="clientSecret" class="form-control required" required
+                                 placeholder="**************">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-control-label">
+                      <label>Callback URL</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+                      <div class="form-group" id="redirectUri-div">
+                        <div class="form-line" th:each="url: ${clientInfo.redirectUri}">
+                          <input name="redirectUri[]" th:value="${url}" class="form-control" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">
+                      <!--todo add more url input-->
+                      <button type="button" class="btn btn-primary m-t-15 waves-effect" id="add-url">+</button>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary m-t-15 waves-effect">Save</button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -65,7 +119,46 @@
 <th:block th:replace="/fragments/layout::core-js"/>
 <th:block th:replace="/fragments/layout::app-js"/>
 <th:block th:replace="/fragments/plugins::flot-chart"/>
+<th:block th:replace="/fragments/plugins::jquery-form"/>
+<th:block th:replace="/fragments/plugins::sweetalert"/>
 
+<script>
+    $(function () {
+        $("#add-url").on("click", function () {
+            $("#redirectUri-div").append(
+                '<div class="form-line">'
+                + '  <input name="redirectUri[]" class="form-control" required>'
+                + '</div>');
+        });
+
+        function initValidate() {
+            $("#clientInfoForm").MValidate({
+                highlight: function (input) {
+                    $(input).parents('.form-line').addClass('error');
+                },
+                unhighlight: function (input) {
+                    $(input).parents('.form-line').removeClass('error');
+                },
+                errorPlacement: function (error, element) {
+                    $(element).parents('.form-group').append(error);
+                },
+                submitHandler: function () {
+                    var data = $("#clientInfoForm").serializeJSON();
+                    $.ajax({
+                        url: MCloud.context + 'console-api/clients',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        method: 'patch',
+                        success: function (data) {
+                            swal("Success");
+                        }
+                    })
+                }
+            });
+        }
+        initValidate();
+    });
+</script>
 </body>
 
 </html>

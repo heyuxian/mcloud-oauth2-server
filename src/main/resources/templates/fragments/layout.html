@@ -219,6 +219,19 @@
 
           <li>
             <a href="javascript:void(0);" class="menu-toggle">
+              <i class="material-icons">person</i>
+              <span>Developer</span>
+            </a>
+            <ul class="ml-menu">
+              <li>
+                <a th:href="@{/admin/dev/index}">All Developers</a>
+                <a th:href="@{/admin/dev/pending}">Pending Developers</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="javascript:void(0);" class="menu-toggle">
               <i class="material-icons">security</i>
               <span>OAuth2</span>
             </a>
@@ -236,8 +249,8 @@
       </div>
       <!-- #End Admin Menu -->
 
-      <!--User Menu -->
-      <div sec:authorize="hasRole('USER')" class="menu">
+      <!--Developer Menu -->
+      <div sec:authorize="hasRole('DEVELOPER')" class="menu">
         <ul class="list">
           <li class="header">DASHBOARD</li>
           <li>

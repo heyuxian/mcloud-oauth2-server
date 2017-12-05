@@ -22,6 +22,7 @@
 <th:block th:fragment="jquery-form">
   <script th:src="@{/webjars/jquery-form/jquery.form.min.js}"></script>
   <script th:src="@{/webjars/jquery-validation/jquery.validate.js}"></script>
+  <script th:src="@{/webjars/jquery.serializeJSON/jquery.serializejson.min.js}"></script>
   <script th:src="@{/static/js/mcloud/mcloud.form.js}"></script>
 </th:block>
 
@@ -42,6 +43,10 @@
 
 <th:block th:fragment="form-step">
   <script th:src="@{/webjars/jquery-steps/build/jquery.steps.min.js}"></script>
+</th:block>
+
+<th:block th:fragment="sweetalert">
+  <script th:src="@{/webjars/sweetalert/docs/assets/sweetalert/sweetalert.min.js}"></script>
 </th:block>
 </body>
 

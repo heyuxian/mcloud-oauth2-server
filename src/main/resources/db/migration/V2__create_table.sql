@@ -93,6 +93,7 @@ CREATE TABLE `oauth_authority` (
 DROP TABLE IF EXISTS `oauth_client`;
 CREATE TABLE `oauth_client` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
   `client_id` varchar(255) NOT NULL,
   `client_secret` varchar(255) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -102,6 +103,7 @@ CREATE TABLE `oauth_client` (
   `access_token_validity` int(11) NOT NULL DEFAULT '0',
   `refresh_token_validity` int(11) NOT NULL DEFAULT '0',
   `additional_information` text,
+  `status` varchar(20) NOT NULL,
   `created_date` datetime NOT NULL,
   `modified_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
