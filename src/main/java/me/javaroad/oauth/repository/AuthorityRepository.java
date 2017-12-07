@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface AuthorityRepository extends JpaRepository<Authority, Long> {
 
     Set<Authority> findByIdIn(Set<Long> authorityIds);
+
+    Authority findByName(String name);
 }

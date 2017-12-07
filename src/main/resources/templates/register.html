@@ -19,6 +19,17 @@
         <div class="msg">Register a new membership</div>
         <div class="input-group">
           <span class="input-group-addon">
+              <i class="material-icons">developer_board</i>
+          </span>
+          <div class="form-line">
+            <select name="userType" class="form-control">
+              <option value="USER">Personal</option>
+              <option value="DEVELOPER">Developer</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">
               <i class="material-icons">person</i>
           </span>
           <div class="form-line">
@@ -62,21 +73,19 @@
 </div>
 
 <th:block th:replace="/fragments/layout::core-js"/>
+<script th:src="@{/static/js/mcloud/mcloud.rest.js}"></script>
 <th:block th:replace="/fragments/plugins::jquery-form"/>
 <script th:inline="javascript">
     $(function () {
-        $('#sign_up').MValidate({
+        $('#sign_up').mvalidate({
             submitHandler: function () {
                 var data = $("#sign_up").serializeJSON();
                 var context = /*[[@{/}]]*/'';
-                $.ajax({
+                MCloud.rest.post({
                     url: context + 'api/v1/users/register',
-                    contentType: 'application/json',
-                    method: 'post',
-                    type: 'json',
                     data: JSON.stringify(data),
                     success: function (data) {
-                        location.href = MCloud.context + 'login';
+                        location.href = context + 'login';
                     }
                 });
                 return false;

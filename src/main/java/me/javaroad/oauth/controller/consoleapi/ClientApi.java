@@ -2,11 +2,13 @@ package me.javaroad.oauth.controller.consoleapi;
 
 import static me.javaroad.oauth.controller.OAuthConstants.CONSOLE_API_PREFIX;
 
+import com.google.common.collect.Sets;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import me.javaroad.oauth.dto.request.CreateClientRequest;
 import me.javaroad.oauth.dto.request.ModifyClientRequest;
 import me.javaroad.oauth.dto.response.ClientResponse;
+import me.javaroad.oauth.entity.GrantType;
 import me.javaroad.oauth.service.ClientService;
 import me.javaroad.web.bind.annotation.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,7 @@ public class ClientApi {
     @ResponseStatus(HttpStatus.CREATED)
     public ClientResponse createClient(@RequestBody @Valid CreateClientRequest clientRequest,
         @CurrentUser String username) {
+        clientRequest.setGrantTypes(Sets.newHashSet(GrantType.CODE));
         return clientService.create(username, clientRequest);
     }
 

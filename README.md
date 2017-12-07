@@ -3,15 +3,17 @@
 [![Coverage Status](https://coveralls.io/repos/github/heyuxian/mcloud-oauth2-server/badge.svg?branch=master)](https://coveralls.io/github/heyuxian/mcloud-oauth2-server?branch=master)
 ## 简介
 
-`mcloud-oauth-server` 基于**Spring OAuth2**,实现了**OAuth2**认证服务器以及资源服务器，并以 **Restful API** 的方式提供了**OAuth** 客户端以及用户的管理功能。项目中主要使用了以下技术：
+`mcloud-oauth-server` 基于**Spring OAuth2**,实现了**OAuth2**认证服务器以及资源服务器，并以 **Restful API** 的方式提供了**OAuth** 客户端以及用户的管理功能。
+
+项目中主要使用了以下技术：
 
 - **Java8**
 - **Spring 相关** Spring, Spring Mvc, Spring Cloud, Spring data jpa, Spring Boot,Hibernate
 - **mapstruct** 主要用于DTO 与 Entity 之间的转换
 - **flywaydb** 以版本化的方式管理数据库脚本
-- **thymeleaf** 模板框架，主要用于登陆界面以及OAuth2认证页面
+- **thymeleaf** 模板框架，用于实现后台管理界面
 - **Redis** 主要用作缓存实现 (暂未实现)
-- **lombok** 主要用于简化 **Javabean** 开发，只需使用注解即可生成 **Javabean** 的 get/set/equals 等方法
+- **lombok** 
 
 ## 认证流程
 
@@ -26,38 +28,27 @@
   - 以 RestAPI 形式提供服务来管理资源：`http://localhost:8043/uaa/swagger-ui.html`
   - 以 Thymeleaf + [AdminBSBMaterialDesign](https://github.com/gurayyarar/AdminBSBMaterialDesign) 实现的管理端:
 
-  ![qq 20171126221422](https://user-images.githubusercontent.com/30259465/33240889-249280ae-d2f9-11e7-9b7e-8184a101b811.jpg)
-
   ​
 
+  **用户端**
+
+  ![image](https://user-images.githubusercontent.com/30259465/33719089-a021befc-db9a-11e7-9a59-179f531dcfe4.png)
+
+
+**管理员**
+
+
+  ![image](https://user-images.githubusercontent.com/30259465/33719145-c7c0af54-db9a-11e7-8c52-f92df2cdd7a1.png)  
+
 ## 快速使用
-
-> 本项目属于[ MCloud](https://github.com/heyuxian/mcloud) 系列中的OAuth2认证服务，故项目中添加了Spring Cloud的依赖，项目启动时会自动在 [mcloud-eureka](https://github.com/heyuxian/mcloud-eureka) 服务发现与注册中心注册，所以在启动此项目之前，需要先启动 [mcloud-eureka](https://github.com/heyuxian/mcloud-eureka) 服务，**若不希望项目在注册中心注册，请将以下代码注释或是直接删除：**
-
-**pom.xml**
-
-```xml
-<!--这个依赖用于注册Eureka，如不需要，请删除或注释-->
-<dependency>
-  <groupId>org.springframework.cloud</groupId>
-  <artifactId>spring-cloud-starter-eureka</artifactId>
-</dependency>
-```
-
-**OAuthServerApplication**
-
-```
-//此注解是用于添加 EurekaClient 支持，如不需要Eureka支持，则请删除
-@EnableEurekaClient
-```
 
 **创建数据库**
 
 请使用 mysql 客户端或是其他你喜欢的工具创建数据库，默认的数据库名称为 `db_oauth`
 
-**执行初始化脚本**
+**使用flywaydb初始化数据库**
 
-因为项目使用了**flywaydb** 进行数据库脚本的管理，所以还需修改 `pom.xml`中 **flywaydb** 插件的数据库名，用户名以及密码：
+修改 `pom.xml`中 **flywaydb** 插件的数据库名，用户名以及密码：
 
 **pom.xml**
 
@@ -78,17 +69,16 @@
 修改相关配置之后，请在项目根目录下执行maven命令:
 
 ```
-mvn flyway:migrate
+mvn flyway:clean flyway:migrate
 ```
 
-至此，数据库已成功创建，最后还需修改项目的数据库配置：
+修改项目的数据库配置：
 
 **application.yml**
 
 ```yaml
 spring:
   datasource:
-    #TODO 根据每个项目自行设置
     url: jdbc:mysql://localhost/数据库名称
     username: 用户
     password: 密码
@@ -164,9 +154,9 @@ http://localhost:8043/uaa/swagger-ui.html
 
 ## 意见及建议
 
-如果你有任何好的意见以及建议，请提Issue给我，如果使用的是码云，可直接发表评论或是私信给我。
+如果你有任何好的意见以及建议，请提 [Issue](https://github.com/heyuxian/mcloud-oauth2-server/issues/new)。
 
-最后，如果你觉得此项目对你有所帮助，欢迎点赞支持，若是你愿意参与到项目中,请fork以及提PR给我。
+如果你觉得此项目对你有所帮助，欢迎点赞支持，若是你愿意参与到项目中,请fork以及提PR。
 
 ## License
 

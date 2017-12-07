@@ -1,11 +1,16 @@
 package me.javaroad.oauth.service;
 
+import static me.javaroad.oauth.controller.OAuthConstants.Default.DEFAULT_DEVELOPER_AUTHORITY;
+import static me.javaroad.oauth.controller.OAuthConstants.Default.DEFAULT_USER_AUTHORITY;
+
+import com.google.common.collect.Sets;
 import java.util.Objects;
 import java.util.Set;
 import me.javaroad.common.exception.DataNotFoundException;
 import me.javaroad.oauth.dto.request.AuthorityRequest;
 import me.javaroad.oauth.dto.response.AuthorityResponse;
 import me.javaroad.oauth.entity.Authority;
+import me.javaroad.oauth.entity.User.UserType;
 import me.javaroad.oauth.mapper.AuthorityMapper;
 import me.javaroad.oauth.repository.AuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +37,10 @@ public class AuthorityService {
 
     Authority getEntity(Long authorityId) {
         return authorityRepository.findOne(authorityId);
+    }
+
+    Authority getEntity(String name) {
+        return authorityRepository.findByName(name);
     }
 
     @Transactional
@@ -64,5 +73,18 @@ public class AuthorityService {
     public Page<AuthorityResponse> getPage(Pageable pageable) {
         Page<Authority> authorityPage = authorityRepository.findAll(pageable);
         return authorityPage.map(authorityMapper::mapEntityToResponse);
+    }
+
+    Set<Authority> getDefaultAuthorities(UserType userType) {
+        Authority authority;
+        if (UserType.USER.equals(userType)) {
+            authority = getEntity(DEFAULT_USER_AUTHORITY);
+        } else {
+            authority = getEntity(DEFAULT_DEVELOPER_AUTHORITY);
+        }
+        if (Objects.isNull(authority)) {
+            throw new DataNotFoundException("Default authority[userType=%s] not exists", userType);
+        }
+        return Sets.newHashSet(authority);
     }
 }

@@ -1,5 +1,8 @@
 package me.javaroad.oauth.config;
 
+import static me.javaroad.oauth.controller.OAuthConstants.Default.DEFAULT_ADMIN_AUTHORITY;
+import static me.javaroad.oauth.controller.OAuthConstants.Default.DEFAULT_DEVELOPER_AUTHORITY;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
@@ -19,9 +22,9 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
         Authentication authentication) throws IOException, ServletException {
-        if (hasRole(authentication.getAuthorities(), "ROLE_ADMIN")) {
+        if (hasRole(authentication.getAuthorities(), DEFAULT_ADMIN_AUTHORITY)) {
             setDefaultTargetUrl("/admin/dashboard");
-        } else if (hasRole(authentication.getAuthorities(), "ROLE_USER")) {
+        } else if (hasRole(authentication.getAuthorities(), DEFAULT_DEVELOPER_AUTHORITY)) {
             setDefaultTargetUrl("/console/dashboard");
         }
         super.onAuthenticationSuccess(request, response, authentication);

@@ -66,16 +66,7 @@
 
 <script>
     $(function () {
-        $('#client-table').MDataTable({
-            columns: [
-                {data: "id"},
-                {data: "clientId"},
-                {data: "name"}
-            ],
-            sAjaxSource: "/uaa/admin-api/clients"
-        });
-
-        $('#form_validation').MValidate();
+        $('#form_validation').mvalidate();
 
     });
 </script>

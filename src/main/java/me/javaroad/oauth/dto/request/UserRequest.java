@@ -1,5 +1,6 @@
 package me.javaroad.oauth.dto.request;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,8 @@ public class UserRequest {
     @NotBlank
     @Size(max = 255)
     private String password;
-    private UserType userType = UserType.USER;
+    @NotNull
+    private UserType userType;
     @Size(max = 50)
     private String email;
     @Size(max = 20)

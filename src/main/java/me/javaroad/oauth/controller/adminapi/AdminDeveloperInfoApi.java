@@ -45,8 +45,8 @@ public class AdminDeveloperInfoApi {
     }
 
     @ApiOperation(value = "Review developerInfo", httpMethod = "POST")
-    @PostMapping("{developerInfoId}/review")
-    public void review(@PathVariable Long developerInfoId, Status status) {
+    @PostMapping("{developerInfoId}/review/{status}")
+    public void review(@PathVariable Long developerInfoId, @PathVariable Status status) {
         developerInfoService.review(developerInfoId, status);
     }
 }

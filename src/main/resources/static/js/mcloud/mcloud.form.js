@@ -1,6 +1,6 @@
 ;$(function ($) {
-    var MValidate = function ($this, options) {
-        this.defaults = {
+    var MValidate = function (form, options) {
+        var defaults = {
             rules: {},
             submitHandler: null,
             highlight: function (input) {
@@ -14,8 +14,8 @@
                 $(element).parents('.form-group').append(error);
             }
         };
-        var settings = $.extend({}, this.defaults, options);
-        $this.validate({
+        var settings = $.extend({}, defaults, options);
+        return form.validate({
             rules: settings.rules,
             submitHandler: settings.submitHandler,
             highlight: settings.highlight,
@@ -23,7 +23,7 @@
             errorPlacement: settings.errorPlacement
         });
     };
-    $.fn.MValidate = function (options) {
+    $.fn.mvalidate = function (options) {
         return MValidate($(this), options);
     };
 });

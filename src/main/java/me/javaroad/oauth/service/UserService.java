@@ -1,10 +1,12 @@
 package me.javaroad.oauth.service;
 
 import java.util.Objects;
+import java.util.Set;
 import me.javaroad.common.exception.DataConflictException;
 import me.javaroad.common.exception.DataNotFoundException;
 import me.javaroad.oauth.dto.request.UserRequest;
 import me.javaroad.oauth.dto.response.UserResponse;
+import me.javaroad.oauth.entity.Authority;
 import me.javaroad.oauth.entity.User;
 import me.javaroad.oauth.mapper.UserMapper;
 import me.javaroad.oauth.repository.UserRepository;
@@ -25,13 +27,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final AuthorityService authorityService;
 
     @Autowired
     public UserService(UserRepository userRepository,
-        UserMapper userMapper, PasswordEncoder passwordEncoder) {
+        UserMapper userMapper, PasswordEncoder passwordEncoder, AuthorityService authorityService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.authorityService = authorityService;
     }
 
     public Page<UserResponse> getAll(Pageable pageable) {
@@ -76,7 +80,6 @@ public class UserService {
 
     @Transactional
     public UserResponse register(UserRequest userRequest) {
-        // todo user authority
         return create(userRequest);
     }
 
@@ -88,8 +91,10 @@ public class UserService {
         user = userMapper.mapRequestToEntity(userRequest);
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         if (Objects.isNull(user.getNickName())) {
-            user.setNickName("User");
+            user.setNickName(user.getUsername());
         }
+        Set<Authority> authorities = authorityService.getDefaultAuthorities(user.getUserType());
+        user.setAuthorities(authorities);
         user = userRepository.save(user);
         return userMapper.mapEntityToResponse(user);
     }

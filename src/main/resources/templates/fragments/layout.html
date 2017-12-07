@@ -29,17 +29,18 @@
 <th:block th:fragment="app-css">
   <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
   <link th:href="@{/static/css/themes/all-themes.css}" rel="stylesheet"/>
-</th:block>
-
-<th:block th:fragment="app-js">
-  <script th:src="@{/static/js/app.js}"></script>
-  <script th:src="@{/static/js/admin.js}"></script>
   <script th:inline="javascript">
       var MCloud = {
           current: location.pathname.replace(/\/(form|create|edit|([0-9]+))*$/, ""),
           context: /*[[@{/}]]*/''
       };
   </script>
+</th:block>
+
+<th:block th:fragment="app-js">
+  <script th:src="@{/static/js/app.js}"></script>
+  <script th:src="@{/static/js/admin.js}"></script>
+  <script th:src="@{/static/js/mcloud/mcloud.rest.js}"></script>
 </th:block>
 
 <th:block th:fragment="common-div">
@@ -442,6 +443,7 @@
   <script th:src="@{/webjars/jQuery-slimScroll/jquery.slimscroll.js}"></script>
   <!-- Waves Effect Plugin Js -->
   <script th:src="@{/webjars/waves/dist/waves.js}"></script>
+  <script th:src="@{/webjars/sweetalert/docs/assets/sweetalert/sweetalert.min.js}"></script>
 </th:block>
 </body>
 

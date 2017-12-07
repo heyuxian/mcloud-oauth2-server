@@ -52,8 +52,9 @@
           </div>
           <div class="body">
             <div class="toolbar">
-              <button type="button" class="btn btn-success waves-effect btn-review">APPROVE</button>
-              <button type="button" class="btn btn-danger waves-effect btn-review">DENY</button>
+              <button type="button" data-status="NORMAL" class="btn btn-success waves-effect btn-review">APPROVE
+              </button>
+              <button type="button" data-status="DENY" class="btn btn-danger waves-effect btn-review">DENY</button>
             </div>
             <div class="table-responsive">
               <table id="client-table"
@@ -82,11 +83,10 @@
 <th:block th:replace="/fragments/layout::core-js"/>
 <th:block th:replace="/fragments/layout::app-js"/>
 <th:block th:replace="/fragments/plugins::datatable-js"/>
-<th:block th:replace="/fragments/plugins::sweetalert"/>
 
 <script>
     $(function () {
-        var table = $('#client-table').MDataTable({
+        var table = $('#client-table').mdatatable({
             columns: [
                 {
                     data: "id"
@@ -122,21 +122,18 @@
                     data: "status"
                 }
             ],
-            sAjaxSource: MCloud.context + "/admin-api/developer-infos?status=PENDING"
+            sAjaxSource: "/admin-api/developer-infos?status=PENDING"
         });
 
         $(".btn-review").on("click", function () {
+            var status = $(this).data('status');
             var data = table.rows({selected: true}).data();
             if (data.length !== 1) {
-                alert('Please select one row');
+                swal('Please select one row');
                 return;
             }
-            $.ajax({
-                url: MCloud.context + 'admin-api/developer-infos/' + data[0].id + '/review',
-                method: 'POST',
-                data: {
-                    status: 'NORMAL'
-                },
+            MCloud.rest.post({
+                url: '/admin-api/developer-infos/' + data[0].id + '/review/' + status,
                 success: function (result) {
                     swal("Success");
                     table.ajax.reload();
