@@ -3,9 +3,6 @@ package me.javaroad.oauth.controller.adminapi;
 import static me.javaroad.oauth.controller.OAuthConstants.ADMIN_API_PREFIX;
 
 import io.swagger.annotations.ApiOperation;
-import javax.validation.Valid;
-import me.javaroad.oauth.dto.request.SearchUserRequest;
-import me.javaroad.oauth.dto.request.UserRequest;
 import me.javaroad.oauth.dto.response.UserResponse;
 import me.javaroad.oauth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,18 +31,10 @@ public class AdminUserApi {
         this.userService = userService;
     }
 
-    @ApiOperation(value = "Create user", httpMethod = "POST")
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse create(@RequestBody @Valid UserRequest userRequest) {
-        return userService.createOrUpdate(userRequest);
-    }
-
     @ApiOperation(value = "Get user page", httpMethod = "GET")
     @GetMapping
-    public Page<UserResponse> getUserPage(SearchUserRequest searchUserRequest,
-        @PageableDefault Pageable pageable) {
-        return userService.getAll(searchUserRequest, pageable);
+    public Page<UserResponse> getUserPage(@PageableDefault Pageable pageable) {
+        return userService.getAll(pageable);
     }
 
     @ApiOperation(value = "Get user", httpMethod = "GET")
@@ -56,7 +43,7 @@ public class AdminUserApi {
         return userService.getResponse(userId);
     }
 
-    @ApiOperation(value = "Delete user", httpMethod = "DELETE")
+    @ApiOperation(value = "Disable user", httpMethod = "DELETE")
     @DeleteMapping("{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long userId) {

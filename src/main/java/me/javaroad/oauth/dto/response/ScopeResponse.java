@@ -9,5 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ScopeResponse {
+    private Long id;
     private String name;
 }

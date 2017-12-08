@@ -3,20 +3,21 @@
 
 <head>
   <title>Authority | MCloud OAuth2 Server</title>
-  <th:block th:replace="/admin/fragments/layout::head"/>
-  <th:block th:replace="/admin/fragments/plugins::datatable-css"/>
+  <th:block th:replace="/fragments/layout::core-css"/>
+  <th:block th:replace="/fragments/layout::app-css"/>
+  <th:block th:replace="/fragments/plugins::datatable-css"/>
 </head>
 
 <body class="theme-teal">
-<th:block th:replace="/admin/fragments/layout::common-div"/>
+<th:block th:replace="/fragments/layout::common-div"/>
 <!-- Search Bar -->
-<th:block th:replace="/admin/fragments/layout::search-bar"/>
+<th:block th:replace="/fragments/layout::search-bar"/>
 <!-- #END# Search Bar -->
 <!-- Top Bar -->
-<th:block th:replace="/admin/fragments/layout::top-bar"/>
+<th:block th:replace="/fragments/layout::top-bar"/>
 <!-- #Top Bar -->
 <!-- #Side Bar -->
-<th:block th:replace="/admin/fragments/layout::side-bar"/>
+<th:block th:replace="/fragments/layout::side-bar"/>
 <!-- #END# Side Bar -->
 
 <section class="content">
@@ -71,12 +72,13 @@
   </div>
 </section>
 
-<th:block th:replace="/admin/fragments/layout::common-js"/>
-<th:block th:replace="/admin/fragments/plugins::datatable-js"/>
+<th:block th:replace="/fragments/layout::core-js"/>
+<th:block th:replace="/fragments/layout::app-js"/>
+<th:block th:replace="/fragments/plugins::datatable-js"/>
 
 <script>
     $(function () {
-        $('#authority-table').MDataTable({
+        $('#authority-table').mdatatable({
             columns: [
                 {data: "id"},
                 {data: "name"}

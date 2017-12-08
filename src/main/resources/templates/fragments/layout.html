@@ -1,40 +1,48 @@
 ﻿<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <th:block th:fragment="head">
-    <!-- Favicon-->
-    <link rel="icon" th:href="@{/static/favicon.ico}" type="image/x-icon">
-
-    <!-- Google Fonts -->
-    <link th:href="@{/webjars/material-design-icons/material-icons.css}" rel="stylesheet">
-
-    <!-- Bootstrap Core Css -->
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.css}" rel="stylesheet">
-
-    <!-- Waves Effect Css -->
-    <link th:href="@{/webjars/waves/dist/waves.css}" rel="stylesheet"/>
-
-    <!-- Animation Css -->
-    <link th:href="@{/webjars/animate.css/animate.css}" rel="stylesheet"/>
-
-    <!-- Custom Css -->
-    <link th:href="@{/static/css/style.css}" rel="stylesheet">
-
-    <link th:href="@{/static/css/themes/all-themes.css}" rel="stylesheet"/>
-
-    <script th:inline="javascript">
-        var MCloud = {
-            current: location.pathname.replace(/\/(form|create|edit|([0-9]+))*$/, ""),
-            context: /*[[@{/admin}]]*/''
-        };
-    </script>
-  </th:block>
+  <meta charset="UTF-8"/>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
 </head>
 
 <body class="theme-teal">
+
+<th:block th:fragment="core-css">
+  <!-- Favicon-->
+  <link rel="icon" th:href="@{/static/favicon.ico}" type="image/x-icon"/>
+
+  <!-- Google Fonts -->
+  <link th:href="@{/webjars/material-design-icons/material-icons.css}" rel="stylesheet"/>
+
+  <!-- Bootstrap Core Css -->
+  <link th:href="@{/webjars/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+
+  <link th:href="@{/webjars/animate.css/animate.css}" rel="stylesheet"/>
+
+  <!-- Waves Effect Css -->
+  <link th:href="@{/webjars/waves/dist/waves.css}" rel="stylesheet"/>
+
+</th:block>
+
+<th:block th:fragment="app-css">
+  <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
+  <link th:href="@{/static/css/themes/all-themes.css}" rel="stylesheet"/>
+  <script th:inline="javascript">
+      var MCloud = {
+          current: location.pathname.replace(/\/(form|create|edit|([0-9]+))*$/, ""),
+          context: /*[[@{/}]]*/''
+      };
+  </script>
+</th:block>
+
+<th:block th:fragment="app-js">
+  <script th:src="@{/static/js/app.js}"></script>
+  <script th:src="@{/static/js/admin.js}"></script>
+  <script th:src="@{/static/js/mcloud/mcloud.rest.js}"></script>
+</th:block>
+
 <th:block th:fragment="common-div">
   <!-- Page Loader -->
   <div class="page-loader-wrapper">
@@ -185,8 +193,9 @@
         </div>
       </div>
       <!-- #User Info -->
-      <!-- Menu -->
-      <div class="menu">
+
+      <!--Admin Menu -->
+      <div sec:authorize="hasRole('ADMIN')" class="menu">
         <ul class="list">
           <li class="header">DASHBOARD</li>
           <li>
@@ -211,6 +220,19 @@
 
           <li>
             <a href="javascript:void(0);" class="menu-toggle">
+              <i class="material-icons">person</i>
+              <span>Developer</span>
+            </a>
+            <ul class="ml-menu">
+              <li>
+                <a th:href="@{/admin/dev/index}">All Developers</a>
+                <a th:href="@{/admin/dev/pending}">Pending Developers</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="javascript:void(0);" class="menu-toggle">
               <i class="material-icons">security</i>
               <span>OAuth2</span>
             </a>
@@ -226,7 +248,29 @@
 
         </ul>
       </div>
-      <!-- #Menu -->
+      <!-- #End Admin Menu -->
+
+      <!--Developer Menu -->
+      <div sec:authorize="hasRole('DEVELOPER')" class="menu">
+        <ul class="list">
+          <li class="header">DASHBOARD</li>
+          <li>
+            <a th:href="@{/console/dashboard}">
+              <i class="material-icons">home</i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="header">BASIC</li>
+          <li>
+            <a th:href="@{/console/dev/info}">
+              <i class="material-icons">person</i>
+              <span>Basic Information</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- #End User Menu -->
+
       <!-- Footer -->
       <div class="legal">
         <div class="copyright">
@@ -390,19 +434,16 @@
   </div>
 </section>
 
-<th:block th:fragment="common-js">
+<th:block th:fragment="core-js">
   <!-- Jquery Core Js -->
   <script th:src="@{/webjars/jquery/1.12.4/jquery.min.js}"></script>
   <!-- Bootstrap Core Js -->
   <script th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>
-  <!-- Select Plugin Js -->
-  <script th:src="@{/webjars/bootstrap-select/js/bootstrap-select.js}"></script>
   <!-- Slimscroll Plugin Js -->
   <script th:src="@{/webjars/jQuery-slimScroll/jquery.slimscroll.js}"></script>
   <!-- Waves Effect Plugin Js -->
   <script th:src="@{/webjars/waves/dist/waves.js}"></script>
-  <script th:src="@{/static/js/app.js}"></script>
-  <script th:src="@{/static/js/admin.js}"></script>
+  <script th:src="@{/webjars/sweetalert/docs/assets/sweetalert/sweetalert.min.js}"></script>
 </th:block>
 </body>
 

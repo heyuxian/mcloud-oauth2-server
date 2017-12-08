@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>500 | Bootstrap Based Admin Template - Material Design</title>
-    <th:block th:replace="/admin/fragments/layout::head"/>
+    <title>500 | MCloud</title>
+    <th:block th:replace="/fragments/layout::core-css"/>
+    <th:block th:replace="/fragments/layout::app-css"/>
 </head>
-
+<!--todo 跳转回上一页-->
 <body class="five-zero-zero">
     <div class="five-zero-zero-container">
         <div class="error-code">500</div>
@@ -15,14 +16,8 @@
         </div>
     </div>
 
-    <!-- Jquery Core Js -->
-    <script th:src="@{/static/plugins/jquery/jquery.min.js}"></script>
+    <th:block th:replace="/fragments/layout::core-js"/>
 
-    <!-- Bootstrap Core Js -->
-    <script th:src="@{/static/plugins/bootstrap/js/bootstrap.js}"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script th:src="@{/static/plugins/node-waves/waves.js}"></script>
 </body>
 
 </html>

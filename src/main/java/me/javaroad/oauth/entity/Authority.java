@@ -17,6 +17,7 @@ import me.javaroad.data.entity.TemporalEntity;
 @Table(name = "oauth_authority")
 public class Authority extends TemporalEntity {
     private String name;
+    private String description;
     @ManyToMany(mappedBy = "authorities")
     private Set<User> users;
 }

@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Dashboard | MCloud OAuth2 Server</title>
+  <th:block th:replace="/fragments/layout::core-css"/>
+  <th:block th:replace="/fragments/layout::app-css"/>
+  <th:block th:replace="/fragments/plugins::bootstrap-select-css"/>
+</head>
+
+<body class="theme-teal">
+<th:block th:replace="/fragments/layout::common-div"/>
+<!-- Search Bar -->
+<th:block th:replace="/fragments/layout::search-bar"/>
+<!-- #END# Search Bar -->
+<!-- Top Bar -->
+<th:block th:replace="/fragments/layout::top-bar"/>
+<!-- #Top Bar -->
+<!-- #Side Bar -->
+<th:block th:replace="/fragments/layout::side-bar"/>
+<!-- #END# Side Bar -->
+
+<!--/*@thymesVar id="info" type="me.javaroad.oauth.dto.response.DeveloperInfoResponse"*/-->
+<!--/*@thymesVar id="clientInfo" type="me.javaroad.oauth.dto.response.ClientResponse"*/-->
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <h2>DEVELOPER INFO</h2>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="body" th:if="${info == null}">
+            You're not a developer. <a th:href="@{/console/dev/apply}">Apply immediately</a>
+          </div>
+          <div class="header" th:if="${info != null and !info.isNormal()}">
+            <p>The account is under review, please wait.</p>
+          </div>
+          <div class="body" th:if="${info != null and info.isNormal() and info.isPersonal()}">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+              <li role="presentation" class="active"><a href="#user-info" data-toggle="tab">USER INFO</a></li>
+              <li role="presentation"><a href="#app-info" data-toggle="tab">APP INFO</a></li>
+              <li role="presentation"><a href="#security" data-toggle="tab">SECURITY</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade in active" id="user-info">
+                <ul class="list-group">
+                  <li class="list-group-item"><b>Name:</b>&nbsp;
+                    <span th:text="${info.personal.realName}" class="label bg-teal"></span></li>
+                  <li class="list-group-item"><b>ID Card Number:</b>&nbsp;<span
+                      class="label bg-teal">5134**************</span>
+                  </li>
+                </ul>
+              </div>
+              <div role="tabpanel" class="tab-pane fade" id="app-info">
+                <h3>TODO</h3>
+              </div>
+
+              <div role="tabpanel" th:if="${clientInfo != null}" class="tab-pane fade" id="security">
+                <form th:action="@{/console-api/clients}" method="post" id="clientInfoForm" class="addel"
+                      data-addel-animation-duration="1000">
+
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-control-label">
+                      <label for="app-key">App Key</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <input id="app-key" class="form-control" th:value="${clientInfo.clientId}" disabled>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-control-label">
+                      <label for="app-secret">App Secret</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <input id="app-secret" type="password" name="clientSecret" class="form-control"
+                                 placeholder="**************" disabled>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-control-label">
+                      <label>Callback URL</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+                      <div class="input-group" th:each="url: ${clientInfo.redirectUri}" data-addel-target>
+                        <div class="form-line">
+                          <input th:name="${'redirectUri['+urlStat.index+']'}" th:value="${url}" class="form-control"
+                                 required disabled>
+                        </div>
+                        <span class="input-group-addon addle-edit hide">
+                          <a href="javascript:void(0);" data-addel-delete>
+                            <i class="material-icons">delete</i>
+                          </a>
+                        </span>
+                      </div>
+                      <button type="button" class="btn btn-info waves-effect addle-edit hide" data-addel-add>
+                        <i class="material-icons">add</i>
+                        <span>ADD</span>
+                      </button>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary m-t-15 waves-effect hide" id="save-btn">
+                    <i class="material-icons">save</i>
+                    <span>Save</span>
+                  </button>
+                  <button class="btn btn-primary m-t-15 waves-effect" type="button" id="edit-btn">
+                    <i class="material-icons">mode_edit</i>
+                    <span>Edit</span>
+                  </button>
+                </form>
+              </div>
+
+              <div role="tabpanel" th:if="${clientInfo == null}" class="tab-pane fade" id="security">
+                <form th:action="@{/console-api/clients}" method="post" id="clientInfoForm" class="addel"
+                      data-addel-animation-duration="1000">
+
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-control-label">
+                      <label for="app-name">App Name</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <input id="app-name" name="name" class="form-control" required placeholder="App Name">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-control-label">
+                      <label for="app-secret">App Secret</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <input id="app-secret" type="password" name="clientSecret" required class="form-control"
+                                 placeholder="**************">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-control-label">
+                      <label for="scope-ids">App Scope</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <select id="scope-ids" multiple name="scopeIds[]" class="form-control" required>
+                            <option th:value="${scope.id}" th:each="scope: ${scopes}" th:text="${scope.name}"></option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 form-control-label">
+                      <label>Callback URL</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-3 col-xs-3">
+                      <div class="input-group" data-addel-target>
+                        <div class="form-line">
+                          <input name="redirectUri[]" class="form-control" required>
+                        </div>
+                        <span class="input-group-addon addle-edit">
+                          <a href="javascript:void(0);" data-addel-delete>
+                            <i class="material-icons">delete</i>
+                          </a>
+                        </span>
+                      </div>
+                      <button type="button" class="btn btn-info waves-effect addle-edit" data-addel-add>
+                        <i class="material-icons">add</i>
+                        <span>ADD</span>
+                      </button>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary m-t-15 waves-effect">
+                    <i class="material-icons">save</i>
+                    <span>Apply</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<th:block th:replace="/fragments/layout::core-js"/>
+<th:block th:replace="/fragments/layout::app-js"/>
+<th:block th:replace="/fragments/plugins::jquery-form"/>
+<th:block th:replace="/fragments/plugins::bootstrap-select-js"/>
+<th:block th:replace="/fragments/plugins::sweetalert"/>
+<th:block th:replace="/fragments/plugins::addel"/>
+
+<script th:if="${clientInfo != null}" th:inline="javascript">
+    $(function () {
+
+        initBtn();
+        initValidate();
+
+        var index = /*[[${#sets.size(clientInfo.redirectUri)}]]*/0;
+        $('.addel').addel({
+            events: {
+                add: function (event) {
+                    // Avoid conflicts with jQuery validate
+                    $(event.target).find('label.error').each(function () {
+                        $(this).remove();
+                    });
+                },
+                added: function (event) {
+                    var newInput = $(event.added).find('input[name^="redirectUri"]')[0];
+                    $(newInput).rules('add', {
+                        required: true
+                    });
+                    $(newInput).prop('name', 'redirectUri[' + (index++) + ']');
+                },
+                delete: function (event) {
+                    if (!window.confirm('Are you absolutely positive you would like to delete: ' + '"'
+                            + event.target.find(':input').val() + '"?')) {
+                        event.preventDefault();
+                    }
+                },
+                deleted: function (event) {
+                    // Avoid conflicts with jQuery validate
+                    $("#clientInfoForm").find('label.error').each(function () {
+                        $(this).remove();
+                    });
+                    index = 0;
+                    $("#clientInfoForm").find('input[name^="redirectUri"]').each(function () {
+                        $(this).prop('name', 'redirectUri[' + (index++) + ']');
+                    })
+                }
+            }
+        });
+
+        function enableForm(isEnabled) {
+            var clientSecret = $("input[name='clientSecret']");
+            clientSecret.prop('disabled', !isEnabled);
+
+            var redirectUri = $("input[name^='redirectUri']");
+            redirectUri.each(function () {
+                $(this).prop('disabled', !isEnabled);
+            });
+
+            if (isEnabled) {
+                clientSecret.val('');
+                $(".addle-edit").removeClass('hide');
+                $("#save-btn").removeClass('hide');
+                $("#edit-btn").addClass('hide');
+            } else {
+                $(".addle-edit").addClass('hide');
+                $("#save-btn").addClass('hide');
+                $("#edit-btn").removeClass('hide');
+            }
+
+        }
+
+        function initBtn() {
+            $("#edit-btn").on('click', function () {
+                enableForm(true);
+            });
+        }
+
+        function initValidate() {
+            $("#clientInfoForm").mvalidate({
+                submitHandler: function () {
+                    var form = $('#clientInfoForm');
+                    var redirectUri = form.find('input[name^="redirectUri"]');
+                    redirectUri.each(function () {
+                        $(this).prop('name', 'redirectUri[]');
+                    });
+                    var data = form.serializeJSON();
+                    MCloud.rest.patch({
+                        url: '/console-api/clients',
+                        data: JSON.stringify(data),
+                        success: function (data) {
+                            swal("Success");
+                            enableForm(false);
+                        }
+                    })
+                }
+            });
+        }
+
+    });
+</script>
+
+<script th:if="${clientInfo == null}">
+    $(function () {
+        var index = /*[[${#sets.size(clientInfo.redirectUri)}]]*/0;
+        $('.addel').addel({
+            events: {
+                add: function (event) {
+                    // Avoid conflicts with jQuery validate
+                    $(event.target).find('label.error').each(function () {
+                        $(this).remove();
+                    });
+                },
+                added: function (event) {
+                    var newInput = $(event.added).find('input[name^="redirectUri"]')[0];
+                    $(newInput).rules('add', {
+                        required: true
+                    });
+                    $(newInput).prop('name', 'redirectUri[' + (index++) + ']');
+                },
+                delete: function (event) {
+                    if (!window.confirm('Are you absolutely positive you would like to delete: ' + '"'
+                            + event.target.find(':input').val() + '"?')) {
+                        event.preventDefault();
+                    }
+                },
+                deleted: function (event) {
+                    // Avoid conflicts with jQuery validate
+                    $("#clientInfoForm").find('label.error').each(function () {
+                        $(this).remove();
+                    });
+                    index = 0;
+                    $("#clientInfoForm").find('input[name^="redirectUri"]').each(function () {
+                        $(this).prop('name', 'redirectUri[' + (index++) + ']');
+                    })
+                }
+            }
+        });
+
+        function initValidate() {
+            $("#clientInfoForm").mvalidate({
+                submitHandler: function () {
+                    var data = $("#clientInfoForm").serializeJSON();
+                    MCloud.rest.post({
+                        url: '/console-api/clients',
+                        data: JSON.stringify(data),
+                        success: function (data) {
+                            location.reload(true);
+                        }
+                    })
+                }
+            });
+        }
+
+        initValidate();
+    });
+</script>
+</body>
+
+</html>

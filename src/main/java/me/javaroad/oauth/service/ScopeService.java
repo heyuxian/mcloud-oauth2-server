@@ -1,5 +1,6 @@
 package me.javaroad.oauth.service;
 
+import java.util.List;
 import java.util.Set;
 import me.javaroad.oauth.dto.request.ScopeRequest;
 import me.javaroad.oauth.dto.response.ScopeResponse;
@@ -58,5 +59,9 @@ public class ScopeService {
     public Page<ScopeResponse> getPage(Pageable pageable) {
         Page<Scope> scopePage = scopeRepository.findAll(pageable);
         return scopePage.map(scopeMapper::mapEntityToResponse);
+    }
+
+    public List<ScopeResponse> getAll() {
+        return scopeMapper.mapEntityToResponse(scopeRepository.findAll());
     }
 }

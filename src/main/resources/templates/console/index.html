@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Dashboard | MCloud OAuth2 Server</title>
+  <th:block th:replace="/fragments/layout::core-css"/>
+  <th:block th:replace="/fragments/layout::app-css"/>
+</head>
+
+<body class="theme-teal">
+<th:block th:replace="/fragments/layout::common-div"/>
+<!-- Search Bar -->
+<th:block th:replace="/fragments/layout::search-bar"/>
+<!-- #END# Search Bar -->
+<!-- Top Bar -->
+<th:block th:replace="/fragments/layout::top-bar"/>
+<!-- #Top Bar -->
+<!-- #Side Bar -->
+<th:block th:replace="/fragments/layout::side-bar"/>
+<!-- #END# Side Bar -->
+
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <h2>DASHBOARD</h2>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <div class="row clearfix">
+              <div class="col-xs-12 col-sm-6">
+                <h2></h2>
+              </div>
+            </div>
+            <ul class="header-dropdown m-r--5">
+              <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">more_vert</i>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                  <li><a href="javascript:void(0);">Action</a></li>
+                  <li><a href="javascript:void(0);">Another action</a></li>
+                  <li><a href="javascript:void(0);">Something else here</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="body">
+            <h2>Dashboard(TODO)</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<th:block th:replace="/fragments/layout::core-js"/>
+<th:block th:replace="/fragments/layout::app-js"/>
+</body>
+
+</html>

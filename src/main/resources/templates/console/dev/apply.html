@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Dashboard | MCloud OAuth2 Server</title>
+  <th:block th:replace="/fragments/layout::core-css"/>
+  <th:block th:replace="/fragments/layout::app-css"/>
+</head>
+
+<body class="theme-teal">
+<th:block th:replace="/fragments/layout::common-div"/>
+<!-- Search Bar -->
+<th:block th:replace="/fragments/layout::search-bar"/>
+<!-- #END# Search Bar -->
+<!-- Top Bar -->
+<th:block th:replace="/fragments/layout::top-bar"/>
+<!-- #Top Bar -->
+<!-- #Side Bar -->
+<th:block th:replace="/fragments/layout::side-bar"/>
+<!-- #END# Side Bar -->
+
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <h2>DASHBOARD</h2>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h2>DEVELOPER INFORMATION</h2>
+            <ul class="header-dropdown m-r--5">
+              <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <i class="material-icons">more_vert</i>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                  <li><a href="javascript:void(0);">Action</a></li>
+                  <li><a href="javascript:void(0);">Another action</a></li>
+                  <li><a href="javascript:void(0);">Something else here</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="body">
+            <form id="dev-info-form" th:action="@{/console-api/dev}" method="post">
+              <h3>Developer Type</h3>
+              <fieldset>
+                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">developer_board</i>
+                    </span>
+                    <div class="form-line">
+                      <select class="form-control" id="type" name="type">
+                        <option value="PERSONAL">Personal</option>
+                        <option value="COMPANY">Company</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <h3>Web Site</h3>
+              <fieldset>
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">https</i>
+                    </span>
+                    <div class="form-line">
+                      <select class="form-control" id="protocol" name="protocol">
+                        <option value="HTTP">http://</option>
+                        <option value="HTTPS">https://</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="form-line">
+                      <input id="domain" name="domain[domain]" class="form-control" required placeholder="Web Site">
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <h3>Developer Info</h3>
+              <fieldset>
+                <div id="personal-info">
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <input id="realName" name="personal[realName]" class="form-control" required>
+                      <label class="form-label">Real Name</label>
+                    </div>
+                  </div>
+                </div>
+                <div id="company-info">
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <input id="corpName" name="company[corpName]" class="form-control">
+                      <label class="form-label">Company Name</label>
+                    </div>
+                  </div>
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <input id="corpLicenseNumber" name="company[corpLicenseNumber]" class="form-control">
+                      <label class="form-label">Company License Number</label>
+                    </div>
+                  </div>
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <input id="corpLicenseImg" name="company[corpLicenseImg]" class="form-control">
+                      <label class="form-label">Company License Image</label>
+                    </div>
+                  </div>
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <input id="taxImg" name="company[taxImg]" class="form-control">
+                      <label class="form-label">Tax Image</label>
+                    </div>
+                  </div>
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <input id="legalPersonName" name="company[legalPersonName]" class="form-control">
+                      <label class="form-label">Legal Person Name</label>
+                    </div>
+                  </div>
+                  <div class="form-group form-float">
+                    <div class="form-line">
+                      <input id="legalPersonIdCardImg" name="company[legalPersonIdCardImg]" class="form-control">
+                      <label class="form-label">IdCard Img</label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <h3>Confirm</h3>
+              <fieldset>
+                <a href="javascript:void(0);" class="list-group-item"><b>Developer Type:</b>&nbsp;<span
+                    id="developer_type_label"></span></a>
+                <a href="javascript:void(0);" class="list-group-item"><b>Domain:</b>&nbsp;<span
+                    id="domain_label"></span></a>
+                <a href="javascript:void(0);" class="list-group-item developer-summary"><b>Developer
+                  Name:</b>&nbsp;<span id="developer_name_label"></span></a>
+                <a href="javascript:void(0);" class="list-group-item company-summary"><b>Company Name:</b>&nbsp;<span
+                    id="company_name_label"></span></a>
+                <a href="javascript:void(0);" class="list-group-item company-summary"><b>Company License Number:</b>&nbsp;<span
+                    id="company_LicenseNumber_label"></span></a>
+                <a href="javascript:void(0);" class="list-group-item company-summary"><b>Legal Person
+                  Name:</b>&nbsp;<span id="company_legalPersonName_label"></span></a>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<th:block th:replace="/fragments/layout::core-js"/>
+<th:block th:replace="/fragments/layout::app-js"/>
+<th:block th:replace="/fragments/plugins::flot-chart"/>
+<th:block th:replace="/fragments/plugins::form-step"/>
+<th:block th:replace="/fragments/plugins::jquery-form"/>
+<script>
+    MCloud.current = MCloud.context + 'console/dev/info';
+</script>
+<script>
+    $(function () {
+        function isPersonal() {
+            return $("#type").val() === 'PERSONAL';
+        }
+
+        function showSummary() {
+            $("#developer_type_label").text($("#type").find("option:selected").text());
+            $("#domain_label").text($("#protocol").find("option:selected").text() + $("#domain").val());
+            if (isPersonal()) {
+                $(".company-summary").hide();
+                $(".developer-summary").show();
+                $("#developer_name_label").text($("#realName").val());
+            } else {
+                $(".developer-summary").hide();
+                $(".company-summary").show();
+                $("#company_name_label").text($("#corpName").val());
+                $("#company_LicenseNumber_label").text($("#corpLicenseNumber").val());
+                $("#company_legalPersonName_label").text($("#legalPersonName").val());
+            }
+        }
+
+        function showDeveloperDetail() {
+            if (isPersonal()) {
+                $("#personal-info").show();
+                $("#company-info").hide();
+            } else {
+                $("#company-info").show();
+                $("#personal-info").hide();
+            }
+        }
+
+        var form = $('#dev-info-form').show();
+        form.steps({
+            headerTag: 'h3',
+            bodyTag: 'fieldset',
+            transitionEffect: 'slideLeft',
+            onInit: function (event, currentIndex) {
+                $.AdminBSB.input.activate();
+                //Set tab width
+                var $tab = $(event.currentTarget).find('ul[role="tablist"] li');
+                var tabCount = $tab.length;
+                $tab.css('width', (100 / tabCount) + '%');
+                setButtonWavesEffect(event);
+            },
+            onStepChanging: function (event, currentIndex, newIndex) {
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+
+                if (currentIndex < newIndex) {
+                    form.find('.body:eq(' + newIndex + ') label.error').remove();
+                    form.find('.body:eq(' + newIndex + ') .error').removeClass('error');
+                }
+
+                form.validate().settings.ignore = ':disabled,:hidden';
+                return form.valid();
+            },
+            onStepChanged: function (event, currentIndex, priorIndex) {
+                if (currentIndex === 2) {
+                    showDeveloperDetail();
+                }
+
+                if (currentIndex === 3) {
+                    showSummary();
+                }
+                setButtonWavesEffect(event);
+            },
+            onFinishing: function (event, currentIndex) {
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex) {
+                var data = $("#dev-info-form").serializeJSON();
+                if (isPersonal()) {
+                    delete data.company;
+                } else {
+                    delete data.personal;
+                }
+
+                $.ajax({
+                    url: MCloud.context+'console-api/dev',
+                    contentType: 'application/json',
+                    method: 'post',
+                    type: 'json',
+                    data: JSON.stringify(data),
+                    success: function (data) {
+                        location.href = MCloud.context + 'console/dev/info';
+                    }
+                });
+            }
+        });
+
+        function setButtonWavesEffect(event) {
+            $(event.currentTarget).find('[role="menu"] li a').removeClass('waves-effect');
+            $(event.currentTarget).find('[role="menu"] li:not(.disabled) a').addClass('waves-effect');
+        }
+
+        // todo validate domain
+        form.mvalidate();
+    });
+</script>
+</body>
+
+</html>

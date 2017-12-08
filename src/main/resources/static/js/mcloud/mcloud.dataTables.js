@@ -5,8 +5,8 @@
             orderable: false,
             className: 'select-checkbox',
             targets: 0,
-            render: function () {
-                return "";
+            render: function (data) {
+                return data;
             }
         }];
         if (options.columnDefs) {
@@ -38,7 +38,7 @@
             columns: [],
             bServerSide: true,
             bInfo: false,
-            sAjaxSource: null,
+            url: null,
             fnServerData: null,
             fnServerParams: null
         };
@@ -84,10 +84,9 @@
                 if (settings.fnServerData) {
                     settings.fnServerData(def);
                 }
-                $.ajax({
+                MCloud.rest.get({
                     url: sSource,
                     data: def,
-                    dataType: "json",
                     success: function (result) {
                         var data = {
                             iTotalRecords: result.totalElements,
@@ -118,7 +117,7 @@
         });
         return table;
     };
-    $.fn.MDataTable = function (options) {
+    $.fn.mdatatable = function (options) {
         return MDataTable($(this), options);
     };
 

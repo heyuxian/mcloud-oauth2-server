@@ -1,11 +1,12 @@
 package me.javaroad.oauth.service;
 
 import java.util.Objects;
+import java.util.Set;
 import me.javaroad.common.exception.DataConflictException;
 import me.javaroad.common.exception.DataNotFoundException;
-import me.javaroad.oauth.dto.request.SearchUserRequest;
 import me.javaroad.oauth.dto.request.UserRequest;
 import me.javaroad.oauth.dto.response.UserResponse;
+import me.javaroad.oauth.entity.Authority;
 import me.javaroad.oauth.entity.User;
 import me.javaroad.oauth.mapper.UserMapper;
 import me.javaroad.oauth.repository.UserRepository;
@@ -26,32 +27,60 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final AuthorityService authorityService;
 
     @Autowired
     public UserService(UserRepository userRepository,
-        UserMapper userMapper, PasswordEncoder passwordEncoder) {
+        UserMapper userMapper, PasswordEncoder passwordEncoder, AuthorityService authorityService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.authorityService = authorityService;
+    }
+
+    public Page<UserResponse> getAll(Pageable pageable) {
+        Page<User> userPage = userRepository.findAll(pageable);
+        return userPage.map(userMapper::mapEntityToResponse);
+    }
+
+    private User getEntity(Long id) {
+        return userRepository.findOne(id);
+    }
+
+    public User getEntity(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    User getNotNullEntity(String username) {
+        User user = getEntity(username);
+        if (Objects.isNull(user)) {
+            throw new DataNotFoundException("User[username=%s] not found", username);
+        }
+        return user;
+    }
+
+    public UserResponse getResponse(Long userId) {
+        User user = getEntity(userId);
+        return userMapper.mapEntityToResponse(user);
+    }
+
+    public UserResponse getResponse(String username) {
+        User user = getEntity(username);
+        return userMapper.mapEntityToResponse(user);
     }
 
     @Transactional
-    public UserResponse createOrUpdate(UserRequest userRequest) {
-        if(Objects.isNull(userRequest.getId())) {
-            return create(userRequest);
+    public void delete(Long userId) {
+        User user = getEntity(userId);
+        if (Objects.isNull(user)) {
+            throw new DataNotFoundException("user[id=%s] not found", userId);
         }
-        return update(userRequest);
+        userRepository.delete(user);
     }
 
-    private UserResponse update(UserRequest userRequest) {
-        User user = getEntity(userRequest.getId());
-        if (Objects.isNull(user)) {
-            throw new DataNotFoundException("User[userId=%s] not found", userRequest.getId());
-        }
-        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-
-        user = userRepository.save(user);
-        return userMapper.mapEntityToResponse(user);
+    @Transactional
+    public UserResponse register(UserRequest userRequest) {
+        return create(userRequest);
     }
 
     private UserResponse create(UserRequest userRequest) {
@@ -61,40 +90,13 @@ public class UserService {
         }
         user = userMapper.mapRequestToEntity(userRequest);
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-
+        if (Objects.isNull(user.getNickName())) {
+            user.setNickName(user.getUsername());
+        }
+        Set<Authority> authorities = authorityService.getDefaultAuthorities(user.getUserType());
+        user.setAuthorities(authorities);
         user = userRepository.save(user);
         return userMapper.mapEntityToResponse(user);
     }
 
-    public Page<UserResponse> getAll(SearchUserRequest searchUserRequest, Pageable pageable) {
-        Page<User> userPage = userRepository.findAll(pageable);
-        return userPage.map(userMapper::mapEntityToResponse);
-    }
-
-    User getEntity(Long id) {
-        return userRepository.findOne(id);
-    }
-
-    public User getEntity(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    public UserResponse getResponse(Long userId) {
-        User user = getEntity(userId);
-        return userMapper.mapEntityToResponse(user);
-    }
-
-    @Transactional
-    public void delete(Long userId) {
-        User user = getEntity(userId);
-        if(Objects.isNull(user)) {
-            throw new DataNotFoundException("user[id=%s] not found", userId);
-        }
-        userRepository.delete(user);
-    }
-
-    public UserResponse getResponse(String username) {
-        User user = getEntity(username);
-        return userMapper.mapEntityToResponse(user);
-    }
 }

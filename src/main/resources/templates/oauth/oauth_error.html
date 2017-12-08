@@ -2,17 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Error | MCloud OAuth2</title>
+  <th:block th:replace="/fragments/layout::core-css"/>
+  <th:block th:replace="/fragments/layout::app-css"/>
 </head>
-<body>
-  <div class="container">
-    <h1>OAuth2 Error</h1>
-    <p>
-      <span th:value="${message}"/>
-      (
-      <span th:value="${error}"/>
-      )
-    </p>
+<body class="four-zero-four">
+<div class="four-zero-four-container">
+  <div class="error-message">Authentication failure</div>
+  <small>Please Try Again.</small>
+  <div class="button-place">
+    <a th:href="@{/admin/dashboard}" class="btn btn-default btn-lg waves-effect">GO TO HOMEPAGE</a>
   </div>
+</div>
+
+<th:block th:replace="/fragments/layout::core-js"/>
 </body>
 </html>

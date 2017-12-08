@@ -5,6 +5,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import me.javaroad.oauth.entity.GrantType;
+import me.javaroad.oauth.entity.Status;
 
 /**
  * @author heyx
@@ -26,4 +27,5 @@ public class ClientResponse {
     private Integer refreshTokenValidity;
     private String additionalInformation;
     private Set<ApprovalResponse> autoApprove;
+    private Status status;
 }

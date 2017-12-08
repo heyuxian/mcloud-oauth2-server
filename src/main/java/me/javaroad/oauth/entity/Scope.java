@@ -17,4 +17,5 @@ import me.javaroad.data.entity.TemporalEntity;
 public class Scope extends TemporalEntity {
     @Column(unique = true)
     private String name;
+    private String description;
 }

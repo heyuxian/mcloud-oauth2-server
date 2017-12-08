@@ -19,9 +19,10 @@
   <script th:src="@{/static/js/mcloud/mcloud.dataTables.js}"></script>
 </th:block>
 
-<th:block th:fragment="form">
+<th:block th:fragment="jquery-form">
   <script th:src="@{/webjars/jquery-form/jquery.form.min.js}"></script>
   <script th:src="@{/webjars/jquery-validation/jquery.validate.js}"></script>
+  <script th:src="@{/webjars/jquery.serializeJSON/jquery.serializejson.min.js}"></script>
   <script th:src="@{/static/js/mcloud/mcloud.form.js}"></script>
 </th:block>
 
@@ -32,6 +33,22 @@
   <script th:src="@{/webjars/flot/jquery.flot.categories.js}"></script>
   <script th:src="@{/webjars/flot/jquery.flot.time.js}"></script>
 </th:block>
+
+<th:block th:fragment="bootstrap-select-css">
+  <link th:href="@{/webjars/bootstrap-select/dist/css/bootstrap-select.css}" rel="stylesheet" />
+</th:block>
+<th:block th:fragment="bootstrap-select-js">
+  <script th:src="@{/webjars/bootstrap-select/dist/js/bootstrap-select.js}"></script>
+</th:block>
+
+<th:block th:fragment="form-step">
+  <script th:src="@{/webjars/jquery-steps/build/jquery.steps.min.js}"></script>
+</th:block>
+
+<th:block th:fragment="addel">
+  <script th:src="@{/webjars/addel/addel.jquery.js}"></script>
+</th:block>
+
 </body>
 
 </html>

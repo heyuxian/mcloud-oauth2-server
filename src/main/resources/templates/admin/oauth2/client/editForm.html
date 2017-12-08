@@ -3,20 +3,21 @@
 
 <head>
   <title>Dashboard | MCloud OAuth2 Server</title>
-  <th:block th:replace="/admin/fragments/layout::head"/>
-  <th:block th:replace="/admin/fragments/plugins::datatable-css"/>
+  <th:block th:replace="/fragments/layout::core-css"/>
+  <th:block th:replace="/fragments/layout::app-css"/>
+  <th:block th:replace="/fragments/plugins::datatable-css"/>
 </head>
 
 <body class="theme-teal">
-<th:block th:replace="/admin/fragments/layout::common-div"/>
+<th:block th:replace="/fragments/layout::common-div"/>
 <!-- Search Bar -->
-<th:block th:replace="/admin/fragments/layout::search-bar"/>
+<th:block th:replace="/fragments/layout::search-bar"/>
 <!-- #END# Search Bar -->
 <!-- Top Bar -->
-<th:block th:replace="/admin/fragments/layout::top-bar"/>
+<th:block th:replace="/fragments/layout::top-bar"/>
 <!-- #Top Bar -->
 <!-- #Side Bar -->
-<th:block th:replace="/admin/fragments/layout::side-bar"/>
+<th:block th:replace="/fragments/layout::side-bar"/>
 <!-- #END# Side Bar -->
 
 
@@ -58,22 +59,14 @@
   </div>
 </section>
 
-<th:block th:replace="/admin/fragments/layout::common-js"/>
-<th:block th:replace="/admin/fragments/plugins::datatable-js"/>
-<th:block th:replace="/admin/fragments/plugins::form"/>
+<th:block th:replace="/fragments/layout::core-js"/>
+<th:block th:replace="/fragments/layout::app-js"/>
+<th:block th:replace="/fragments/plugins::datatable-js"/>
+<th:block th:replace="/fragments/plugins::jquery-form"/>
 
 <script>
     $(function () {
-        $('#client-table').MDataTable({
-            columns: [
-                {data: "id"},
-                {data: "clientId"},
-                {data: "name"}
-            ],
-            sAjaxSource: "/uaa/admin-api/clients"
-        });
-
-        $('#form_validation').MValidate();
+        $('#form_validation').mvalidate();
 
     });
 </script>

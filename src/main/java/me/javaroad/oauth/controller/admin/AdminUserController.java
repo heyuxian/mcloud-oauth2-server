@@ -16,16 +16,16 @@ public class AdminUserController extends BaseController {
 
     @GetMapping("index")
     public String index() {
-        return view("user/index");
+        return view("index");
     }
 
     @GetMapping("create")
     public String create() {
-        return view("user/create");
+        return view("create");
     }
 
     @GetMapping("group")
     public String group() {
-        return view("user/group");
+        return view("group");
     }
 }

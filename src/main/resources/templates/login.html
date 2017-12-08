@@ -3,7 +3,8 @@
 
 <head>
   <title>Sign In | MCloud</title>
-  <th:block th:replace="/admin/fragments/layout::head"/>
+  <th:block th:replace="/fragments/layout::core-css"/>
+  <th:block th:replace="/fragments/layout::app-css"/>
 </head>
 
 <body class="login-page">
@@ -48,7 +49,7 @@
         </div>
         <div class="row m-t-15 m-b--20">
           <div class="col-xs-6">
-            <a href="sign-up.html">Register Now!</a>
+            <a th:href="@{/register}">Register Now!</a>
           </div>
           <div class="col-xs-6 align-right">
             <a href="forgot-password.html">Forgot Password?</a>
@@ -59,23 +60,12 @@
   </div>
 </div>
 
-<script th:src="@{/webjars/jquery/1.12.4/jquery.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.js}"></script>
-<th:block th:replace="/admin/fragments/plugins::form"/>
+<th:block th:replace="/fragments/layout::core-js"/>
+<th:block th:replace="/fragments/plugins::jquery-form"/>
 
 <script>
-    $(function ($) {
-        $('#sign_in').MValidate({
-            highlight: function (input) {
-                $(input).parents('.form-line').addClass('error');
-            },
-            unhighlight: function (input) {
-                $(input).parents('.form-line').removeClass('error');
-            },
-            errorPlacement: function (error, element) {
-                $(element).parents('.input-group').append(error);
-            }
-        });
+    $(function () {
+        $('#sign_in').mvalidate();
     });
 </script>
 </body>

@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Dashboard | MCloud OAuth2 Server</title>
+  <th:block th:replace="/fragments/layout::core-css"/>
+  <th:block th:replace="/fragments/layout::app-css"/>
+  <th:block th:replace="/fragments/plugins::datatable-css"/>
+</head>
+
+<body class="theme-teal">
+<th:block th:replace="/fragments/layout::common-div"/>
+<!-- Search Bar -->
+<th:block th:replace="/fragments/layout::search-bar"/>
+<!-- #END# Search Bar -->
+<!-- Top Bar -->
+<th:block th:replace="/fragments/layout::top-bar"/>
+<!-- #Top Bar -->
+<!-- #Side Bar -->
+<th:block th:replace="/fragments/layout::side-bar"/>
+<!-- #END# Side Bar -->
+
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <h2>
+        OAUTH2 - DEVELOPER
+      </h2>
+    </div>
+    <!-- Basic Examples -->
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h2>
+              PENDING DEVELOPERS
+            </h2>
+            <ul class="header-dropdown m-r--5">
+              <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                   aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">more_vert</i>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                  <li><a href="javascript:void(0);">Action</a></li>
+                  <li><a href="javascript:void(0);">Another action</a></li>
+                  <li><a href="javascript:void(0);">Something else here</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="body">
+            <div class="toolbar">
+              <button type="button" data-status="NORMAL" class="btn btn-success waves-effect btn-review">APPROVE
+              </button>
+              <button type="button" data-status="DENY" class="btn btn-danger waves-effect btn-review">DENY</button>
+            </div>
+            <div class="table-responsive">
+              <table id="client-table"
+                     class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Type</th>
+                  <th>Web Site</th>
+                  <th>Real Name</th>
+                  <th>Company Name</th>
+                  <th>Status</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- #END# Basic Examples -->
+  </div>
+</section>
+
+<th:block th:replace="/fragments/layout::core-js"/>
+<th:block th:replace="/fragments/layout::app-js"/>
+<th:block th:replace="/fragments/plugins::datatable-js"/>
+
+<script>
+    $(function () {
+        var table = $('#client-table').mdatatable({
+            columns: [
+                {
+                    data: "id"
+                },
+                {
+                    data: "type"
+                },
+                {
+                    data: "domain",
+                    render: function (data) {
+                        return data.domain;
+                    }
+                },
+                {
+                    data: "personal",
+                    render: function (data) {
+                        if (data) {
+                            return data.realName;
+                        }
+                        return '-';
+                    }
+                },
+                {
+                    data: "company",
+                    render: function (data) {
+                        if (data) {
+                            return data.corpName;
+                        }
+                        return '-';
+                    }
+                },
+                {
+                    data: "status"
+                }
+            ],
+            sAjaxSource: "/admin-api/developer-infos?status=PENDING"
+        });
+
+        $(".btn-review").on("click", function () {
+            var status = $(this).data('status');
+            var data = table.rows({selected: true}).data();
+            if (data.length !== 1) {
+                swal('Please select one row');
+                return;
+            }
+            MCloud.rest.post({
+                url: '/admin-api/developer-infos/' + data[0].id + '/review/' + status,
+                success: function (result) {
+                    swal("Success");
+                    table.ajax.reload();
+                }
+            });
+        });
+    });
+</script>
+</body>
+
+</html>
