@@ -7,8 +7,8 @@ INSERT INTO oauth_resource (name, description, created_date, modified_date) VALU
 INSERT INTO oauth_scope (name, description, created_date, modified_date) VALUES ('USER_INFO', null, '2017-12-02 19:05:39', '2017-12-02 19:05:42');
 
 INSERT INTO oauth_authority (name, description, created_date, modified_date) VALUES ('ROLE_ADMIN', null, '2017-12-02 18:57:32', '2017-12-02 18:57:37');
-INSERT INTO oauth_authority (name, description, created_date, modified_date) VALUES ('ROLE_USER', null, '2017-12-02 18:58:23', '2017-12-02 18:58:26');
 INSERT INTO oauth_authority (name, description, created_date, modified_date) VALUES ('ROLE_DEVELOPER', null, '2017-12-02 18:58:23', '2017-12-02 18:58:26');
+INSERT INTO oauth_authority (name, description, created_date, modified_date) VALUES ('ROLE_USER', null, '2017-12-02 18:58:23', '2017-12-02 18:58:26');
 
 INSERT INTO client_authority (client_id, authority_id) VALUES (1, 3);
 INSERT INTO client_resource (client_id, resource_id) VALUES (1, 1);
