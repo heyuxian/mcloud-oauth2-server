@@ -36,7 +36,25 @@ security:
       id: openid
       serviceId: ${PREFIX:}resource
       filter-order: 3
-
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+    appname: mcloud-oauth-server
+    statusPageUrlPath: ${server.context-path}${management.context-path}/info
+    healthCheckUrlPath: ${server.context-path}${management.context-path}/health
+    metadata-map:
+      management:
+        context-path: ${server.context-path}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+management:
+  context-path: /monitoring
+  security:
+    enabled: false
 info:
   app:
     name: MCloud-OAuth2 Server
