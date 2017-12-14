@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/login", "/register", "/swagger**/**", "/v2/api-docs").permitAll()
             .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/console/**").hasRole("DEVELOPER")
+            //todo add permission check
+            .antMatchers("/monitoring/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin().loginPage("/login").successHandler(new SuccessHandler())
