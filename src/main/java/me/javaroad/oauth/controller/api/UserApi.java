@@ -12,7 +12,6 @@ import me.javaroad.oauth.dto.response.UserResponse;
 import me.javaroad.oauth.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +32,7 @@ public class UserApi {
     }
 
     @ApiOperation(value = "Get current user", httpMethod = "POST")
-    @GetMapping("me")
+    @PostMapping("me")
     public UserResponse me(Principal principal) {
         if (Objects.isNull(principal) || StringUtils.isBlank(principal.getName())) {
             throw new UnauthorizedException("unauthorized");

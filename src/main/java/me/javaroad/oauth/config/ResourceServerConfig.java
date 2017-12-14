@@ -36,6 +36,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             .requestMatchers()
             .antMatchers("/api/v1/**")
             .and().authorizeRequests()
+            // todo add permission check
+            .antMatchers("/monitoring/**").permitAll()
             .antMatchers("/api/v1/users/register").permitAll()
             .antMatchers("/api/v1/**")
             .authenticated();
