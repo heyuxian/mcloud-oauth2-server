@@ -1,6 +1,7 @@
 # MCloud - OAuth2 认证中心
 [![Build Status](https://www.travis-ci.org/heyuxian/mcloud-oauth2-server.svg?branch=master)](https://www.travis-ci.org/heyuxian/mcloud-oauth2-server)
-[![Coverage Status](https://coveralls.io/repos/github/heyuxian/mcloud-oauth2-server/badge.svg?branch=master)](https://coveralls.io/github/heyuxian/mcloud-oauth2-server?branch=master)[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Coverage Status](https://coveralls.io/repos/github/heyuxian/mcloud-oauth2-server/badge.svg?branch=master)](https://coveralls.io/github/heyuxian/mcloud-oauth2-server?branch=master)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
 
