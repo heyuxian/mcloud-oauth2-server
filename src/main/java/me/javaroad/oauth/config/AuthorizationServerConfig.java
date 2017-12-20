@@ -1,6 +1,5 @@
 package me.javaroad.oauth.config;
 
-import java.security.KeyPair;
 import me.javaroad.oauth.core.CustomClientDetailsService;
 import me.javaroad.oauth.core.CustomUserApprovalHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+
+import java.security.KeyPair;
 
 /**
  * @author heyx
@@ -49,6 +50,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             .accessTokenConverter(jwtAccessTokenConverter());
     }
 
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer.passwordEncoder(passwordEncoder).tokenKeyAccess("permitAll()").checkTokenAccess(
+            "isAuthenticated()");
+    }
+
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
@@ -57,12 +64,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             .getKeyPair("test");
         converter.setKeyPair(keyPair);
         return converter;
-    }
-
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer.passwordEncoder(passwordEncoder).tokenKeyAccess("permitAll()").checkTokenAccess(
-            "isAuthenticated()");
     }
 
     @Bean

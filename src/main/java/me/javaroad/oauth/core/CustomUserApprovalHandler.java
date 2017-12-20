@@ -1,11 +1,6 @@
 package me.javaroad.oauth.core;
 
-/**
- * @author heyx
- */
-
-import java.util.Collection;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.AuthorizationRequest;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -13,9 +8,9 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.approval.ApprovalStoreUserApprovalHandler;
 
-/**
- * @author Dave Syer
- */
+import java.util.Collection;
+
+@Slf4j
 public class CustomUserApprovalHandler extends ApprovalStoreUserApprovalHandler {
 
     private boolean useApprovalStore = true;
@@ -52,7 +47,8 @@ public class CustomUserApprovalHandler extends ApprovalStoreUserApprovalHandler 
                             break;
                         }
                     }
-                } catch (ClientRegistrationException ignore) {
+                } catch (ClientRegistrationException e) {
+                    log.info(e.getMessage(), e);
                 }
             }
         }

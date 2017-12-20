@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 public class KeyUtils {
 
     @Test
-    public void publicKey(){
+    public void publicKey() {
         KeyPair keyPair = new KeyStoreKeyFactory(
             new ClassPathResource("keystore.jks"), "foobar".toCharArray())
             .getKeyPair("test");

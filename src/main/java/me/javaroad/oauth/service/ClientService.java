@@ -1,25 +1,17 @@
 package me.javaroad.oauth.service;
 
 import com.google.common.collect.Sets;
-import java.util.Objects;
-import java.util.Set;
+import lombok.RequiredArgsConstructor;
 import me.javaroad.common.exception.DataConflictException;
 import me.javaroad.common.exception.DataNotFoundException;
 import me.javaroad.common.exception.InvalidParameterException;
 import me.javaroad.oauth.dto.request.CreateClientRequest;
 import me.javaroad.oauth.dto.request.ModifyClientRequest;
 import me.javaroad.oauth.dto.response.ClientResponse;
-import me.javaroad.oauth.entity.Approval;
-import me.javaroad.oauth.entity.Authority;
-import me.javaroad.oauth.entity.Client;
-import me.javaroad.oauth.entity.GrantType;
-import me.javaroad.oauth.entity.Resource;
-import me.javaroad.oauth.entity.Scope;
-import me.javaroad.oauth.entity.Status;
-import me.javaroad.oauth.entity.User;
+import me.javaroad.oauth.entity.*;
 import me.javaroad.oauth.mapper.ClientMapper;
 import me.javaroad.oauth.repository.ClientRepository;
-import me.javaroad.oauth.util.IDUtils;
+import me.javaroad.oauth.util.IdUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,11 +21,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Objects;
+import java.util.Set;
+
 /**
  * @author heyx
  */
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientService {
 
     private final ClientRepository clientRepository;
@@ -45,20 +41,6 @@ public class ClientService {
     private final ScopeService scopeService;
     private final UserService userService;
 
-    @Autowired
-    public ClientService(ClientRepository clientRepository, ClientMapper clientMapper,
-        PasswordEncoder passwordEncoder, ResourceService resourceService, ApprovalService approvalService,
-        AuthorityService authorityService, ScopeService scopeService, UserService userService) {
-        this.clientRepository = clientRepository;
-        this.clientMapper = clientMapper;
-        this.passwordEncoder = passwordEncoder;
-        this.resourceService = resourceService;
-        this.approvalService = approvalService;
-        this.authorityService = authorityService;
-        this.scopeService = scopeService;
-        this.userService = userService;
-    }
-
     public Client getEntity(Long clientId) {
         return clientRepository.findOne(clientId);
     }
@@ -69,10 +51,10 @@ public class ClientService {
         if (Objects.nonNull(client)) {
             throw new DataConflictException("User client[username=%s] already exists", username);
         }
-        User user = userService.getNotNullEntity(username);
         client = clientMapper.mapRequestToEntity(clientRequest);
-        client.setClientId(IDUtils.uuid());
+        client.setClientId(IdUtils.uuid());
         client.setStatus(Status.PENDING);
+        User user = userService.getNotNullEntity(username);
         client.setUser(user);
         client.setClientSecret(passwordEncoder.encode(clientRequest.getClientSecret()));
         // todo
