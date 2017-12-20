@@ -13,7 +13,7 @@ public enum GrantType {
     CLIENT_CREDENTIALS("client_credentials"),
     //简化模式
     IMPLICIT("implicit"),
-    REFRESH_TOKEN("refresh_token");
+    REFRESH_TOKEN("refreshToken");
 
     @Getter
     private String code;

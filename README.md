@@ -1,6 +1,10 @@
 # MCloud - OAuth2 认证中心
 [![Build Status](https://www.travis-ci.org/heyuxian/mcloud-oauth2-server.svg?branch=master)](https://www.travis-ci.org/heyuxian/mcloud-oauth2-server)
 [![Coverage Status](https://coveralls.io/repos/github/heyuxian/mcloud-oauth2-server/badge.svg?branch=master)](https://coveralls.io/github/heyuxian/mcloud-oauth2-server?branch=master)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+
+
 ## 简介
 
 `mcloud-oauth-server` 基于**Spring OAuth2**,实现了**OAuth2**认证服务器以及资源服务器，并以 **Restful API** 的方式提供了**OAuth** 客户端以及用户的管理功能。
@@ -152,26 +156,8 @@ http://localhost:8043/uaa/swagger-ui.html
 1. 因本项目使用了 **lombok** 进行开发，在开发之前需要安装插件，若使用的是 **IDEA**  进行开发，请自行搜索并安装 **lombok** 插件，否则会导致编译错误
 2. 若是进行二次开发，请替换 `keystore.jks` **（非常重要）** ,否则会导致安全风险，`keystore.jks` 可使用jdk 工具生成，也可自行使用其他工具生成非对称密钥对。
 
-## 意见及建议
+## 问题及建议
 
 如果你有任何好的意见以及建议，请提 [Issue](https://github.com/heyuxian/mcloud-oauth2-server/issues/new)。
 
-如果你觉得此项目对你有所帮助，欢迎点赞支持，若是你愿意参与到项目中,请fork以及提PR。
-
-## License
-
-```
-Copyright 2017 http://www.javaroad.me
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+如果你觉得此项目对你有所帮助，欢迎点赞支持。
