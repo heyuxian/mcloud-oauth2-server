@@ -1,8 +1,8 @@
 package me.javaroad.oauth.config;
 
 import me.javaroad.data.config.JpaAuditingConfig;
-import me.javaroad.web.config.DefaultSwaggerConfig;
-import me.javaroad.web.exception.DefaultExceptionHandler;
+import me.javaroad.web.config.SimpleSwaggerConfig;
+import me.javaroad.web.exception.AuthcExceptionHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Import;
  * @author heyx
  */
 @Import({
-    DefaultSwaggerConfig.class,
+    SimpleSwaggerConfig.class,
     JpaAuditingConfig.class,
-    DefaultExceptionHandler.class
+    AuthcExceptionHandler.class
 })
 @Configuration
 public class AppConfig {
