@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+  <Properties>
+    <Property name="pattern" value="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+  </Properties>
+
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${pattern}"/>
+    </Console>
+
+    <RollingFile name="RollingFile" fileName="D:/logs/oauth2.log"
+      filePattern="D:/logs/$${date:yyyy-MM}/oauth2-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout pattern="${pattern}"/>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="250 MB"/>
+      </Policies>
+    </RollingFile>
+    <Async name="AsyncRollingFile">
+      <AppenderRef ref="RollingFile"/>
+    </Async>
+
+  </Appenders>
+  <Loggers>
+    <Root level="DEBUG">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="AsyncRollingFile"/>
+    </Root>
+  </Loggers>
+
+</Configuration>
