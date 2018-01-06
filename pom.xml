@@ -11,34 +11,29 @@
   <url>http://maven.apache.org</url>
 
   <parent>
-    <groupId>me.javaroad</groupId>
+    <groupId>me.javaroad.mcloud</groupId>
     <artifactId>mcloud-parent</artifactId>
-    <version>1.0.4.RELEASE</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
-
-	<properties>
-		<!-- automatically run annotation processors within the incremental compilation -->
-		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
-	</properties>
 
   <dependencies>
 
     <dependency>
       <groupId>me.javaroad</groupId>
-      <artifactId>mcloud-common</artifactId>
-      <version>1.0.2-SNAPSHOT</version>
+      <artifactId>javaroad-common</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>me.javaroad</groupId>
-      <artifactId>mcloud-data</artifactId>
-      <version>1.0.2-SNAPSHOT</version>
+      <artifactId>javaroad-data</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
-      <groupId>me.javaroad</groupId>
+      <groupId>me.javaroad.mcloud</groupId>
       <artifactId>mcloud-web</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
@@ -72,16 +67,27 @@
 
     <dependency>
       <groupId>org.mapstruct</groupId>
-      <artifactId>mapstruct-jdk8</artifactId>
-      <version>${org.mapstruct.version}</version>
+      <artifactId>mapstruct</artifactId>
     </dependency>
     <dependency>
       <groupId>org.mapstruct</groupId>
       <artifactId>mapstruct-processor</artifactId>
-      <version>${org.mapstruct.version}</version>
       <scope>provided</scope>
     </dependency>
 
+    <!--test-->
+    <dependency>
+      <groupId>me.javaroad</groupId>
+      <artifactId>javaroad-test</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.flywaydb.flyway-test-extensions</groupId>
+      <artifactId>flyway-spring-test</artifactId>
+      <version>${flyway.version}</version>
+      <scope>test</scope>
+    </dependency>
 
     <!--webjars-->
     <dependency>
@@ -211,7 +217,7 @@
       <plugin>
         <groupId>com.mysema.maven</groupId>
         <artifactId>apt-maven-plugin</artifactId>
-        <version>${apt-maven-plugin.version}</version>
+        <version>${apt-maven.version}</version>
         <executions>
           <execution>
             <goals>
@@ -235,7 +241,7 @@
       <plugin>
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-maven-plugin</artifactId>
-        <version>${flyway-maven-plugin.version}</version>
+        <version>${flyway.version}</version>
         <configuration>
           <user>root</user>
           <password>root</password>
