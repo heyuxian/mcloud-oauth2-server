@@ -10,13 +10,13 @@ mysql:
 jdk:
   - oraclejdk8
 install:
-  - mvn clean install -Dmaven.test.skip=true
+  - mvn clean install -Dmaven.test.skip=true -s ./.m2/settings.xml
 before_script:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS db_oauth;'
 script:
-  - mvn test
+  - mvn test -s ./.m2/settings.xml
 after_success:
-  - mvn test jacoco:report coveralls:report
+  - mvn test jacoco:report coveralls:report -s ./.m2/settings.xml
 notifications:
   email:
     - heyuxian.me@gmail.com
