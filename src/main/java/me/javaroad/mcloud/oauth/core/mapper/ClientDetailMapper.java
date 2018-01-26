@@ -1,5 +1,6 @@
 package me.javaroad.mcloud.oauth.core.mapper;
 
+import com.google.common.collect.Maps;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -69,10 +70,10 @@ public abstract class ClientDetailMapper {
             try {
                 return mapper.readValue(additionalInformation, Map.class);
             } catch (IOException e) {
-                return null;
+                return Maps.newHashMap();
             }
         }
-        return null;
+        return Maps.newHashMap();
     }
 
 }

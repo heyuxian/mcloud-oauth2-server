@@ -45,11 +45,6 @@ eureka:
 security:
   oauth2:
     resource:
-      jwt:
-        keyValue: |
-          -----BEGIN PUBLIC KEY-----
-          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnU/x82VEqJn3pjx8LJi87UItHmDcgAgByl7TpmzIqXlsnEM6lt8DsznwX/3bqi9GxhXyW0IPRrC4g4lIZRqUlFC6W8x/azzmfbmIpyUv9kVNpuk52BlzULvHKxjbqjQTQFqxFeu0nFQK4B/gDu9Zj6xbb19Yc9b8jkguakNNjzDE+sGwja0WekGuBnqcS8pwTxkRG8lsUSaWsVjLXQVS5MCdZgGjv/abMqIwAPFXdrlbAMKp+epSuMGrGO7j8pLGBjOmoGSHzqZ90DtTIzu4HIgykTo0UqdT/RNoHPCMnhcf0FzqtMU7XQlIIJJ2x2TiUws1uYY0IdPZusKy2K1ntwIDAQAB
-          -----END PUBLIC KEY-----
       id: openid
       serviceId: ${PREFIX:}resource
       filter-order: 3
