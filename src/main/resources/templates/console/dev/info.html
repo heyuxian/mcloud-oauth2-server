@@ -3,21 +3,21 @@
 
 <head>
   <title>Dashboard | MCloud OAuth2 Server</title>
-  <th:block th:replace="/fragments/layout::core-css"/>
-  <th:block th:replace="/fragments/layout::app-css"/>
-  <th:block th:replace="/fragments/plugins::bootstrap-select-css"/>
+  <th:block th:replace="fragments/layout::core-css"/>
+  <th:block th:replace="fragments/layout::app-css"/>
+  <th:block th:replace="fragments/plugins::bootstrap-select-css"/>
 </head>
 
 <body class="theme-teal">
-<th:block th:replace="/fragments/layout::common-div"/>
+<th:block th:replace="fragments/layout::common-div"/>
 <!-- Search Bar -->
-<th:block th:replace="/fragments/layout::search-bar"/>
+<th:block th:replace="fragments/layout::search-bar"/>
 <!-- #END# Search Bar -->
 <!-- Top Bar -->
-<th:block th:replace="/fragments/layout::top-bar"/>
+<th:block th:replace="fragments/layout::top-bar"/>
 <!-- #Top Bar -->
 <!-- #Side Bar -->
-<th:block th:replace="/fragments/layout::side-bar"/>
+<th:block th:replace="fragments/layout::side-bar"/>
 <!-- #END# Side Bar -->
 
 <!--/*@thymesVar id="info" type="me.javaroad.mcloud.oauth.dto.response.DeveloperInfoResponse"*/-->
@@ -208,12 +208,12 @@
 </section>
 
 
-<th:block th:replace="/fragments/layout::core-js"/>
-<th:block th:replace="/fragments/layout::app-js"/>
-<th:block th:replace="/fragments/plugins::jquery-form"/>
-<th:block th:replace="/fragments/plugins::bootstrap-select-js"/>
-<th:block th:replace="/fragments/plugins::sweetalert"/>
-<th:block th:replace="/fragments/plugins::addel"/>
+<th:block th:replace="fragments/layout::core-js"/>
+<th:block th:replace="fragments/layout::app-js"/>
+<th:block th:replace="fragments/plugins::jquery-form"/>
+<th:block th:replace="fragments/plugins::bootstrap-select-js"/>
+<th:block th:replace="fragments/plugins::sweetalert"/>
+<th:block th:replace="fragments/plugins::addel"/>
 
 <script th:if="${clientInfo != null}" th:inline="javascript">
     $(function () {

@@ -3,8 +3,8 @@
 
 <head>
   <title>Sign In | MCloud</title>
-  <th:block th:replace="/fragments/layout::core-css"/>
-  <th:block th:replace="/fragments/layout::app-css"/>
+  <th:block th:replace="fragments/layout::core-css"/>
+  <th:block th:replace="fragments/layout::app-css"/>
 </head>
 
 <body class="signup-page">
@@ -72,9 +72,9 @@
   </div>
 </div>
 
-<th:block th:replace="/fragments/layout::core-js"/>
+<th:block th:replace="fragments/layout::core-js"/>
 <script th:src="@{/static/js/mcloud/mcloud.rest.js}"></script>
-<th:block th:replace="/fragments/plugins::jquery-form"/>
+<th:block th:replace="fragments/plugins::jquery-form"/>
 <script th:inline="javascript">
     $(function () {
         $('#sign_up').mvalidate({
