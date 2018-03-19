@@ -114,7 +114,7 @@ http://localhost:8043/uaa/swagger-ui.html
 
 了解Postman并且安装了 **Chrome** 的 **Postman** 插件
 
-首先自然是启动服务，然后我们在Postman中请求 `http://localhost:8043/uaa/api/v1/users/` ，此时因为还未进行认证，所以服务器返回的是 `401` 的状态码：
+首先自然是启动服务，然后我们在Postman中请求 `http://localhost:8043/uaa/api/v1/users/me` ，此时因为还未进行认证，所以服务器返回的是 `401` 的状态码：
 
 ![OAuth fail](https://user-images.githubusercontent.com/30259465/31854106-e2270cf6-b6c6-11e7-91e3-f66ec6fef9fd.png)
 
@@ -138,7 +138,7 @@ http://localhost:8043/uaa/swagger-ui.html
 
 默认用户：
 
-- **用户名** user
+- **用户名** mcloud-user
 - **密码** 123456
 
 ![qq 20171022012701](https://user-images.githubusercontent.com/30259465/31854253-51b0a55e-b6c8-11e7-8415-d0ff4a242a85.png)
