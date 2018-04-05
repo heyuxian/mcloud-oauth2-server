@@ -5,7 +5,7 @@
 
 
 # Deprecated
-> 认证模块使用  [keycloak](http://www.keycloak.org/) 替代
+> 认证模块将使用  [keycloak](http://www.keycloak.org/) 替代
 
 ## 简介
 
