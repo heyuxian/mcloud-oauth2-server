@@ -33,8 +33,8 @@ public class AdminOAuth2Controller extends BaseController {
         return view("client/index");
     }
 
-    @GetMapping("client/form")
+    @GetMapping("client/edit-form")
     public String createClient() {
-        return view("client/form");
+        return view("client/edit-form");
     }
 }

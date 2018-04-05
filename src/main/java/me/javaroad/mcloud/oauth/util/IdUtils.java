@@ -8,7 +8,6 @@ import java.util.UUID;
 public class IdUtils {
 
     public static String uuid() {
-        UUID uuid = UUID.randomUUID();
-        return uuid.toString();
+        return UUID.randomUUID().toString();
     }
 }
